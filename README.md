@@ -1,2 +1,2 @@
 # space3D
-Loigitiel de spatialisation
+Logitiel de spatialisation
