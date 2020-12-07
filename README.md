@@ -1,2 +1,2 @@
 # space3D
-Logitiel de spatialisation
+Logiciel de spatialisation
