@@ -5,7 +5,7 @@ Le principe de base est de disposer d’un outil permettant de placer des objets
 
 S’il existe de nombreux outils pour Windows et OSX, Linux n’a pas encore vraiment investi ce domaine. Pourtant, l’écriture de l’espace sonore, que ce soit pour une diffusion traditionnelle (concert) ou pour des installations, constitue un champ d’expérimentation extraordinaire.
 
-
+La documentation se trouve <a href="http://blanchemain.info/Documents/Programmation/index.php?page=space3D" ><b>ici.</b></a>
 
 <b>Installation du programme</b>
 
