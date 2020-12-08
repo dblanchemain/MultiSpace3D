@@ -13,8 +13,8 @@ else
 echo "Le dossier de travail ($HOME)/space3D est créé" 
 
 	cp  /usr/local/share/space3D/preferences.spc $HOME/space3D
-	cp -Rf /usr/local/share/space3D/Plugins/ $HOME/space3D/Plugins
-
+	cp -Rf /usr/local/share/space3D/Plugins/ $HOME/space3D
+	cp -Rf /usr/local/share/space3D/DSP/ $HOME/space3D/
 fi 
 
 /usr/local/bin/space3D.bin  /usr/local/share/space3D $HOME
