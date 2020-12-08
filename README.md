@@ -15,6 +15,8 @@ git clone https://github.com/dblanchemain/space3D
 cd space3D
 make install
 
+multiSpace3D.sh (pour lancer le programme)
+
 Au premier lancement, il créera un dossier space3D dans votre espace utilisateur dans lequel vous trouverez les greffons et le fichier de configuration.
 
 Cette application a été testée sous <b>Debian/LibraZiK2.</b>
@@ -47,7 +49,7 @@ MultiSpace3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous dev
 Dans un terminal, ouvrez le dossier correspondant et tapez les commandes ;
 
 
-make space3D
+make multiSpace3D
 
 make spaceCreate
 
