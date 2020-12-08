@@ -1,5 +1,5 @@
-# space3D
-Space3D est un spatialiseur 3D.
+# FaustSpace3D
+FaustSpace3D est un spatialiseur 3D.
 
 Le principe de base est de disposer d’un outil permettant de placer des objets audios statiques ou dynamiques dans l’ espace 3D d’un studio, d’une salle de concert ou de tout autre dispostif haut parlant.
 
