@@ -1,5 +1,5 @@
-# Space3D
-Space3D est un spatialiseur 3D.
+# MultiSpace3D
+MultiSpace3D est un spatialiseur 3D.
 
 Le principe de base est de disposer d’un outil permettant de placer des objets audios statiques ou dynamiques dans l’ espace 3D d’un studio, d’une salle de concert ou de tout autre dispostif haut parlant.
 
@@ -19,7 +19,7 @@ Au premier lancement, il créera un dossier space3D dans votre espace utilisateu
 
 Cette application a été testée sous <b>Debian/LibraZiK2.</b>
 
-Space3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
+MultiSpace3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
 
 Le programme propose 15 greffons pour Ardour et Reaper aux formats Lv2 et VST :
 Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M17, Dominium, NHK222, ZKM23, RfStudio, Ircam, Satosphere, Klangdom, dispositifDb64.
@@ -42,7 +42,7 @@ Le script space3D.sh suppose que le programme est bien installé en /usr/local. 
 
 Avant de compiler, vous devez disposer d’un environnement de développement complet.
 
-Space3D64 dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
+MultiSpace3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
 
 Dans un terminal, ouvrez le dossier correspondant et tapez les commandes ;
 
