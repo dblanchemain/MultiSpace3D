@@ -18,7 +18,7 @@ Au premier lancement, il créera un dossier space3D dans votre espace utilisateu
 Space3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
 
 Le programme propose 15 greffons pour Ardour et Reaper aux formats Lv2 et VST :
-Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M171, Dominium, NHK222, ZKM23, RfStudio, Ircam, Satosphere, Klangdom, dispositifDb64.
+Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M17, Dominium, NHK222, ZKM23, RfStudio, Ircam, Satosphere, Klangdom, dispositifDb64.
 Vous pouvez installer ceux qui vous conviennent dans les répertoires correspondants, par exemple ~/.lv2 pour Ardour et ~/.vst pour Reaper. Sous Linux, Reaper ne reconnaît que les vst.
 Ces greffons sont indispensables pour le fonctionnement complet de l’application. ils se trouvent dans les dossiers $HOME/space3D/lv2 et $HOME/space3D/vst (vst Linux 64bits)
 Ils ont été compilés à partir des sources du Grame pour le langage Faust et sont sous licence BSD.
@@ -62,4 +62,5 @@ Si tout se passe bien vous pouvez finaliser en tapant :
 make install
 
 Vous pouvez évidemment modifier le script d’installation s’il ne vous convient pas, mais attention au générateur de script de lancement.
+
 La compilation sous Windows est identique avec Msys2.
