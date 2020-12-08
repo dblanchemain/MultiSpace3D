@@ -70,4 +70,4 @@ La compilation sous Windows est identique avec Msys2.
 <b>Création d'un nouvel espace de projection</b>
 Vous pouvez créer un nouvel espace haut-parlant en utilisant cet utilitaire : spaceCreate.
 
-Vous pourrez ainsi définir l'emplacement de tous les haut-parleurs de votre nouvel espace  et générer le fichier DSP associé que vous pourrez compiler avec <a href="https://faustide.grame.fr/" > <b>faustIde</b></a> pour créer des greffons LV2 ou vst.
+Vous pourrez ainsi définir l'emplacement de tous les haut-parleurs de votre nouvel espace  et générer le fichier DSP associé. Il est possible de le compiler avec l'utiliataire du <b>Grame</b>, <a href="https://faustide.grame.fr/" > <b>faustIde</b></a>, pour créer des greffons LV2 ou vst ou en utilisant les scripts de <b>Faust</b>.
