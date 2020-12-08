@@ -34,7 +34,7 @@ Les modèles ne sont pas installés automatiquement.
 
 Le script space3D.sh suppose que le programme est bien installé en /usr/local. Ce script est indispensable, car il transmet des informations de configuration au programme.
 
-Compilation
+<b>Compilation</b>
 
 Avant de compiler, vous devez disposer d’un environnement de développement complet.
 
