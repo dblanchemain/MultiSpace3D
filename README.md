@@ -44,6 +44,7 @@ Dans un terminal, ouvrez le dossier correspondant et tapez les commandes ;
 
 
 make space3D
+
 make spaceCreate
 
 ou
