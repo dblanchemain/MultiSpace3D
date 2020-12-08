@@ -12,7 +12,7 @@ spaceCreate: spaceCreate.cpp
 	$(CXX)  -std=c++17 -O3 spaceCreate.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config --cflags --libs` -o spaceCreate
 
 space3D: space3D.cpp
-	$(CXX)  -std=c++17 -O3 space3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config --cflags --libs` -o space3D.bin
+	$(CXX)  -std=c++17 -O3 space3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config --cflags --libs` -o multiSpace3D.bin
 
 
 
