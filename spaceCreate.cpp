@@ -1302,7 +1302,7 @@ void saveSpace(){
 	string nameFile;
 	nameFile=newFile.getString();
 
-	string wfile=home+"/space3D/Studios/"+nameFile+".spc";
+	string wfile=home+"/space3D/DSP/"+nameFile+".spc";
 	
 	std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
@@ -1325,7 +1325,7 @@ void saveTableauHtml(){
 	string sx="";
 	string sy="";
 	string sz="";
-	string wfile=home+"/space3D/Studios/"+nameFile+".html";
+	string wfile=home+"/space3D/DSP/"+nameFile+".html";
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
@@ -1376,7 +1376,7 @@ void loadSpace(){
 	string nameFile;
 	nameFile=newFile.getString();
 
-	string wfile=home+"/space3D/Studios/"+nameFile+".spc";
+	string wfile=home+"/space3D/DSP/"+nameFile+".spc";
 	int i=0;
 	std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
@@ -1421,7 +1421,7 @@ void saveDSP(){
 	float d;
 	string nameFile;
 	nameFile=newFile.getString();
-	string wfile=home+"/space3D/Studios/"+nameFile+".dsp";
+	string wfile=home+"/space3D/DSP/"+nameFile+".dsp";
 	string prog;
 	prog=prog+"declare name        \"objMatrix"+nameFile+"\"; // modifier le nom de votre greffon\n";
    prog=prog+"declare version     \"1.0\";\n";
@@ -1461,7 +1461,7 @@ void saveDSP(){
 			j++;
 		}
 	}
-	prog=prog+"dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)-y(in),2) + pow(tabSpeakerZ(out)-z(in),2));\n";
+	prog=prog+"dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)+y(in),2) + pow(tabSpeakerZ(out)-z(in),2));\n";
 
    prog=prog+"dgain(in, out) = ba.db2linear((-50/tabSpeakerD(out))*dtencGen(in,out));\n";
     
@@ -1473,7 +1473,7 @@ void saveDSP(){
 
    prog=prog+"Fader(in,out)= vgroup(\"[1]Input %2in\",dgain(in,out));\n";
 
-   prog=prog+"cdistance(in)=sqrt(pow(0-x(in),2) + pow(0-y(in),2) + pow(0-z(in),2));\n";
+   prog=prog+"cdistance(in)=sqrt(pow(0-x(in),2) + pow(0+y(in),2) + pow(0-z(in),2));\n";
 
    prog=prog+"paramDistance(x)=hgroup(\"[2]Distance\",x);\n";
    prog=prog+"//-----------------------------------------------------------\n";
