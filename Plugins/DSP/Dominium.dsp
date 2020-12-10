@@ -78,13 +78,13 @@ tabSpeakerX(17)=0.000;
 tabSpeakerY(17)=1.000;
 tabSpeakerZ(17)=0.000;
 tabSpeakerD(17)=1.000;
-dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)-y(in),2) + pow(tabSpeakerZ(out)-z(in),2));
+dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)+y(in),2) + pow(tabSpeakerZ(out)-z(in),2));
 dgain(in, out) = ba.db2linear((-50/tabSpeakerD(out))*dtencGen(in,out));
 x(i) = hslider("/X%i",0,-1,1,0.01);
 y(i) = hslider("/Y%i",0,-1,1,0.01);
 z(i) = hslider("/Z%i",0,-1,1,0.01);
 Fader(in,out)= vgroup("[1]Input %2in",dgain(in,out));
-cdistance(in)=sqrt(pow(0-x(in),2) + pow(0-y(in),2) + pow(0-z(in),2));
+cdistance(in)=sqrt(pow(0-x(in),2) + pow(0+y(in),2) + pow(0-z(in),2));
 paramDistance(x)=hgroup("[2]Distance",x);
 //-----------------------------------------------------------
 //                   LPF 
