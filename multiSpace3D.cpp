@@ -40,6 +40,7 @@ defautGroupe=0;
 defautTrack=1;
 defautR=0.04;
 objActif=65536;
+flagFileMode=0;
 /*
 prefDAW=0;
 prefServeur="localhost";
@@ -370,7 +371,7 @@ adr << std::fixed << defGui<<"space.png";
 if (!imageF5.loadFromFile(adr.str()))
    return EXIT_FAILURE;
 selectGroupe.setTexture(imageF5);
-selectGroupe.setPosition(sf::Vector2f(90,2));
+selectGroupe.setPosition(sf::Vector2f(106,2));
 adr.clear();
 adr.str("");
 adr << std::fixed << defGui<<"trash.png";
@@ -500,6 +501,41 @@ spaceNew.setTexture(imageF24);
 spaceNew.setPosition(sf::Vector2f(632,2));
 adr.clear();
 adr.str("");
+adr << std::fixed << defGui<<"open.png";
+if (!imageF25.loadFromFile(adr.str()))
+   return EXIT_FAILURE;
+openFile.setTexture(imageF25);
+openFile.setPosition(sf::Vector2f(42,2));
+adr.clear();
+adr.str("");
+adr << std::fixed << defGui<<"saisie3.png";
+if (!imageF26.loadFromFile(adr.str()))
+   return EXIT_FAILURE;
+file.setTexture(imageF26);
+file.setPosition(sf::Vector2f(4, 4));
+adr.clear();
+adr.str("");
+adr << std::fixed << defGui<<"floppy.png";
+if (!imageF27.loadFromFile(adr.str()))
+   return EXIT_FAILURE;
+floppy.setTexture(imageF27);
+floppy.setPosition(sf::Vector2f(74, 3));
+adr.clear();
+adr.str("");
+adr << std::fixed << defGui<<"ok.png";
+if (!imageF28.loadFromFile(adr.str()))
+   return EXIT_FAILURE;
+fileok.setTexture(imageF28);
+fileok.setPosition(sf::Vector2f(150, 31));
+adr.clear();
+adr.str("");
+adr << std::fixed << defGui<<"bAnnuler.png";
+if (!imageF29.loadFromFile(adr.str()))
+   return EXIT_FAILURE;
+fileAnnul.setTexture(imageF29);
+fileAnnul.setPosition(sf::Vector2f(90, 31));
+adr.clear();
+adr.str("");
 
 confDaw1.setRadius(4.f);
 confDaw1.setFillColor(sf::Color(0,0,0));
@@ -565,6 +601,11 @@ inpText.setString("");
 inpText.setCharacterSize(13);
 inpText.setPosition(sf::Vector2f(8, 8));
 inpText.setFillColor(sf::Color(0,0,0));
+
+inpTextFile.setFont(font);
+inpTextFile.setString("");
+inpTextFile.setCharacterSize(13);
+inpTextFile.setFillColor(sf::Color(0,0,0));
 
 
 labelInpBarText.setFont(font);
@@ -684,6 +725,7 @@ objetCreate();
 while (winPrincipale.isOpen()) {
 	sf::Event eventPrincipal;
 	sf::Event eventInput;
+	sf::Event eventInputFile;
 	sf::Event eventSelectGrp;
 	sf::Event eventParam;
 	sf::Event event3D;
@@ -731,6 +773,20 @@ while (winPrincipale.isOpen()) {
 					   break;
 			case sf::Event::MouseButtonPressed:
 					onClickInput(eventInput);
+					break;
+			}      
+	}
+	while (winInputFile.pollEvent(eventInputFile)){        
+ 			switch (eventInputFile.type){
+  			case sf::Event::Closed:
+					//writeConfGui();
+					//writePreferences();
+					winInputFile.close();
+			case sf::Event::TextEntered:
+	     			   newInputTextFile(eventInputFile);
+					   break;
+			case sf::Event::MouseButtonPressed:
+					onClickInputFile(eventInputFile);
 					break;
 			}      
 	}
@@ -785,6 +841,8 @@ while (winPrincipale.isOpen()) {
     
 	winPrincipale.draw(menuBar);
 	winPrincipale.draw(preferences);
+	winPrincipale.draw(openFile);
+	winPrincipale.draw(floppy);
 	winPrincipale.draw(selectGroupe);
 	winPrincipale.draw(trash);
 	winPrincipale.draw(trash2);
@@ -881,6 +939,30 @@ while (winPrincipale.isOpen()) {
     	winInput.popGLStates();
     	winInput.setActive(false);
 	}
+	if(winInputFile.isOpen()){
+		winInputFile.setActive(true);
+    	winInputFile.pushGLStates();
+    	winInputFile.clear(sf::Color(203,213,217));
+    	
+		winInputFile.draw(file); 
+		winInputFile.draw(fileAnnul); 
+		winInputFile.draw(fileok);   	
+    	
+    	winInputFile.draw(inpTextFile);
+    	
+    	if(flagInpCurseur==1){
+			if(clockCurseur.getElapsedTime()>sf::seconds(0.8f)){
+				winInputFile.draw(winInpCurseur);
+				if(clockCurseur.getElapsedTime()>sf::seconds(1.6f)){
+					clockCurseur.restart();
+				}
+			}
+		}
+    	
+    	winInputFile.display();
+    	winInputFile.popGLStates();
+    	winInputFile.setActive(false);
+	}
 	if(winSelectGrp.isOpen()){
 		winSelectGrp.setActive(true);
     	winSelectGrp.pushGLStates();
@@ -958,6 +1040,61 @@ while (winPrincipale.isOpen()) {
     	win3D.setActive(false);
 	}
  }
+}
+//**************************************************************************************************
+//													Fenêtre Input File
+//**************************************************************************************************
+void newInputTextFile(sf::Event e){
+   int key=e.key.code;
+   stringstream adr;
+   if (e.text.unicode < 128){
+		if(key==8){
+	      apptxt=apptxt.substr(0,apptxt.length()-1);
+	 	}else{
+			apptxt=apptxt+static_cast<char>(e.text.unicode);
+			flagTxt=1;
+		}
+		switch (inpIndex){
+       		case 1:
+       			inpTextFile.setString(apptxt);
+       			inpTextFile.setPosition(200-inpTextFile.getLocalBounds().width-2,6);
+       			break;
+       		default:
+       			break;
+	    }
+	    
+   }
+   adr.clear();
+  	adr.str(""); 
+}
+
+void onClickInputFile(sf::Event e){
+	stringstream adr;
+	if (e.mouseButton.button == sf::Mouse::Left){
+ 		std::cout << " Palette the left button was pressed" << std::endl;
+ 		std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+ 		std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+   }
+	if(e.mouseButton.x>4 && e.mouseButton.x<204  && e.mouseButton.y>4 && e.mouseButton.y<30){
+   	inpIndex=1;
+   	apptxt="";
+   	inpTextFile.setString("");
+   	winInpCurseur.setPosition(200,8);
+	 	flagInpCurseur=1;
+	 	clockCurseur.restart();
+   }
+   if(e.mouseButton.x>90 && e.mouseButton.x<144  && e.mouseButton.y>30 && e.mouseButton.y<46){
+   	winInputFile.close();
+   }
+   if(e.mouseButton.x>150 && e.mouseButton.x<198  && e.mouseButton.y>30 && e.mouseButton.y<46){
+   	if(flagFileMode==0){
+   		openSpace();
+   		winInputFile.close();
+   	}else{
+   		saveSpace();
+   		winInputFile.close();
+   	}
+   }
 }
 //**************************************************************************************************
 //													Fenêtre Input
@@ -1518,7 +1655,7 @@ void onClick(sf::Event e){
    	}
    }
    
-   if(e.mouseButton.x>92 && e.mouseButton.x<134 && e.mouseButton.y>6 && e.mouseButton.y<26){
+   if(e.mouseButton.x>106 && e.mouseButton.x<136 && e.mouseButton.y>6 && e.mouseButton.y<26){
    	newInstanceSpace();
    }
    if(e.mouseButton.x>150 && e.mouseButton.x<170 && e.mouseButton.y>6 && e.mouseButton.y<26){
@@ -1571,6 +1708,14 @@ void onClick(sf::Event e){
    }
    if(e.mouseButton.x>10 && e.mouseButton.x<34 && e.mouseButton.y>6 && e.mouseButton.y<26){
    	winParam.create (sf::VideoMode(500,180), "Vue 3D",sf::Style::Default , settings);
+   }
+   if(e.mouseButton.x>44 && e.mouseButton.x<72 && e.mouseButton.y>2 && e.mouseButton.y<26){
+   	flagFileMode=0;
+   	winInputFile.create (sf::VideoMode(208,58), " Load File",sf::Style::Default , settings);
+   }
+   if(e.mouseButton.x>74 && e.mouseButton.x<102 && e.mouseButton.y>2 && e.mouseButton.y<26){
+   	flagFileMode=1;
+   	winInputFile.create (sf::VideoMode(208,58), "Save File",sf::Style::Default , settings);
    }
    if(e.mouseButton.x>634 && e.mouseButton.x<662 && e.mouseButton.y>2 && e.mouseButton.y<28){
    	std::cout << " newSurface" << std::endl;
@@ -1849,6 +1994,75 @@ void newSurface(){
    std::copy(cmd.begin(), cmd.end(), dest);
    std::cout << " dest: " << dest << std::endl;
    system(dest);
+}
+
+void saveSpace(){
+	string nameFile;
+	nameFile=inpTextFile.getString();
+	std::cout << " save space " << nameFile << std::endl;
+
+	string wfile=home+"/space3D/"+nameFile+".obj";
+	
+	std::cout << "file :"<<wfile<< std::endl;
+	if(nameFile!=""){
+		ofstream fichier(wfile, ios::out | ios::trunc);
+		if(fichier){
+			for(int i=0;i<tabEntree.size();i++){
+				fichier<<tabEntree[i].input<<","<<tabEntree[i].groupe<<","<<tabEntree[i].x<<","<<tabEntree[i].y<<","<<tabEntree[i].z<<","<< endl;
+		   }
+	   }else{  // sinon
+     		cerr << "Erreur à l'ouverture du fichier!" << endl;
+		}
+	   fichier.close();
+   }
+
+}
+void openSpace(){
+	std::string::size_type sz;
+	string contenu;
+	size_t pos = 0;
+	std::string token[5];
+	std::string delimiter = ",";
+	entree nsp;
+	tabEntree.clear(); 
+	string nameFile;
+	nameFile=inpTextFile.getString();
+	std::cout << " open space " << nameFile << std::endl;
+	string wfile=home+"/space3D/"+nameFile+".obj";
+	
+	int i=0;
+	std::cout << "file :"<<wfile<< std::endl;
+	if(nameFile!=""){
+		ifstream fichier(wfile, ios::in);
+		if(fichier){
+			while(getline(fichier, contenu)){
+				std::cout << "ligne :"<<contenu<< std::endl;
+				while ((pos = contenu.find(delimiter)) != std::string::npos) {
+    				token[i] = contenu.substr(0, pos);
+    				std::cout << token[i] << std::endl;
+    				i++;
+    				contenu.erase(0, pos + delimiter.length());
+				}
+				i=0;
+				nsp.input=stoi(token[0]);
+				nsp.groupe=stoi(token[1]);
+				nsp.x=stof(token[2],&sz);
+				nsp.y=stof(token[3]);
+				nsp.z=stof(token[4]);
+				nsp.r=defautR;
+		      nsp.scale=1;
+				
+				nsp.spriteD.setTexture(tabTexture[nsp.groupe]);
+				nsp.spriteR.setTexture(tabTexture[nsp.groupe]);
+				nsp.spriteA.setTexture(tabTexture[nsp.groupe]);
+				nsp.sprite3D.setTexture(tabTexture[nsp.groupe]);
+				tabEntree.push_back(nsp);
+			}
+	   }else{  // sinon
+     		cerr << "Erreur à l'ouverture du fichier!" << endl;
+		}
+	   fichier.close();
+   }
 }
 //***************************************************************************************************************
 //																Fenêtre Param

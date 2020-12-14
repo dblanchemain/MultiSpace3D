@@ -14,6 +14,7 @@
 
 sf::RenderWindow winPrincipale(sf::VideoMode(810,846), "Vue de dessus");
 sf::RenderWindow winInput;
+sf::RenderWindow winInputFile;
 sf::RenderWindow winSelectGrp;
 sf::RenderWindow winParam;
 sf::RenderWindow win3D;
@@ -59,6 +60,12 @@ sf::Texture imageF21;
 sf::Texture imageF22;
 sf::Texture imageF23;
 sf::Texture imageF24;
+sf::Texture imageF25;
+sf::Texture imageF26;
+sf::Texture imageF27;
+sf::Texture imageF28;
+sf::Texture imageF29;
+
 sf::Sprite spaceNew;
 sf::Texture grille3d;
 sf::Texture repere;
@@ -92,6 +99,11 @@ sf::Sprite  tabSprite[32];
 sf::Texture  tabTexture[32];
 sf::CircleShape confDaw1;
 sf::CircleShape selectMixer;
+sf::Sprite openFile;
+sf::Sprite file;
+sf::Sprite floppy;
+sf::Sprite fileok;
+sf::Sprite fileAnnul;
 struct speaker{			// Structure pour les enceintes  sweetspot
 		int num;
 	   float x;            // x
@@ -120,6 +132,8 @@ int defautTrack;
 float defautR;
 std::vector<entree> tabEntree;
 
+bool flagFileMode;
+
 void onEventResized(sf::Event e);
 void mouseWheel(sf::Event e);
 void onKeyPressed(sf::Event e);
@@ -143,6 +157,8 @@ void nSelectMixer();
 void refInput(sf::Event e);
 
 void newInstanceSpace();
+void saveSpace();
+void openSpace();
 //*****************************************************************************************************************
 //																Fenêtre Input
 //*****************************************************************************************************************
@@ -182,6 +198,11 @@ sf::Clock clockCurseur;
 void onClickInput(sf::Event e);
 void onClickSelectGrp(sf::Event e);
 void newInputText(sf::Event e);
+
+sf::Text labelInputFile;
+sf::Text inpTextFile;
+void newInputTextFile(sf::Event e);
+void onClickInputFile(sf::Event e);
 //*****************************************************************************************************************
 //																Fenêtre 3D
 //*****************************************************************************************************************
