@@ -21,7 +21,7 @@ install:
 	cp multiSpace3D.sh $(prefix)/bin/
 	chmod 755 $(prefix)/bin/multiSpace3D.bin
 	chmod 755 $(prefix)/bin/multiSpace3D.sh
-	if [ -d "$(prefix)/share/multiSpace3D" ]; \
+	if [ -d "$(prefix)/share/multiSpace3D" ]; then \
     	mkdir $(prefix)/share/multiSpace3D;\
 	fi
 	
