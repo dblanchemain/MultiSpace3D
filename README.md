@@ -9,11 +9,11 @@ La <b>documentation</b> se trouve <a href="http://blanchemain.info/Documents/Pro
 
 <b>Installation du programme</b>
 
-Vous pouvez charger les sources et l'exécutable ici :
+Pour LibraZiK2, vous pouvez charger les binaires ici : <a href="./Programmes/multiSpace3D.tar.gz"  style="text-decoration:none;"  ></a> et décompresser l'archive.
 <pre><code>
-git clone https://github.com/dblanchemain/space3D
-cd space3D
-make install
+ 
+cd multiSpace
+sudo make install
 
 multiSpace3D.sh (pour lancer le programme)
 </code></pre>
@@ -48,27 +48,26 @@ Avant de compiler, vous devez disposer d’un environnement de développement co
 MultiSpace3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
 
 Dans un terminal, ouvrez le dossier correspondant et tapez les commandes ;
-
-
-make multiSpace3D
-
-make spaceCreate
-
-ou
-
+<pre><code>
+git clone https://github.com/dblanchemain/space3D
+cd space3D
 make all
+sudo make install
+
+multiSpace3D.sh (pour lancer le programme)
+</code></pre>
+
+
 
 Make utilise la commande suivante pour compiler :
 
-
+<pre><code>
 $(CXX)  -std=c++17 -O3 oscSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config ` -o space3Dbin
-
-Si tout se passe bien vous pouvez finaliser en tapant :
-
-
-make install
+</code></pre>
 
 Vous pouvez évidemment modifier le script d’installation s’il ne vous convient pas, mais attention au générateur de script de lancement.
+
+Pour LibraZik2, vous pouvez télécharger les binaires de tous les greffons ici :<a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.g</a>
 
 La compilation sous Windows est identique avec Msys2.
 
