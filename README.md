@@ -28,6 +28,7 @@ Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M17, Dominium, NHK222, ZKM23, R
 Vous pouvez installer ceux qui vous conviennent dans les répertoires correspondants, par exemple ~/.lv2 pour Ardour et ~/.vst pour Reaper. Sous Linux, Reaper ne reconnaît que les vst.
 Ces greffons sont indispensables pour le fonctionnement complet de l’application. ils se trouvent dans les dossiers $HOME/space3D/lv2 et $HOME/space3D/vst (vst Linux 64bits)
 Ils ont été compilés à partir des sources du Grame pour le langage Faust et sont sous licence BSD.
+Vous trouverez une archive pour <b>Debian/LibraZiK2</b> à <a href="./Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >cette adresse</a>
 
     space3D64bin constitue l'application proprement dite.
     space3D64.sh est un script de lancement du programme. Vous pouvez l'utiliser pour un lanceur sur le bureau sans avoir besoin d'un terminal.
