@@ -67,7 +67,7 @@ $(CXX)  -std=c++17 -O3 oscSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfm
 
 Vous pouvez évidemment modifier le script d’installation s’il ne vous convient pas, mais attention au générateur de script de lancement.
 
-Pour LibraZik2, vous pouvez télécharger les binaires de tous les greffons ici :<a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.g</a>
+Pour LibraZiK2, vous pouvez télécharger les binaires de tous les greffons ici :<a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.g</a>
 
 La compilation sous Windows est identique avec Msys2.
 
