@@ -9,7 +9,7 @@ La <b>documentation</b> se trouve <a href="http://blanchemain.info/Documents/Pro
 
 <b>Installation du programme</b>
 
-Pour LibraZiK2, vous pouvez charger les binaires ici : <a href="./Programmes/multiSpace3D.tar.gz"  style="text-decoration:none;"  ></a> et décompresser l'archive.
+Pour LibraZiK2, vous pouvez charger les binaires ici : <a href="http://blanchemain.info/Documents/Programmation/Programmes/multiSpace3D.tar.gz"  style="text-decoration:none;"  ></a> et décompresser l'archive.
 <pre><code>
  
 cd multiSpace
