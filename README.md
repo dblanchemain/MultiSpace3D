@@ -10,13 +10,13 @@ La <b>documentation</b> se trouve <a href="http://blanchemain.info/Documents/Pro
 <b>Installation du programme</b>
 
 Vous pouvez charger les sources et l'exécutable ici :
-
+<pre><code>
 git clone https://github.com/dblanchemain/space3D
 cd space3D
 make install
 
 multiSpace3D.sh (pour lancer le programme)
-
+</code></pre>
 Au premier lancement, il créera un dossier space3D dans votre espace utilisateur dans lequel vous trouverez les greffons et le fichier de configuration.
 
 Cette application a été testée sous <b>Debian/LibraZiK2.</b>
