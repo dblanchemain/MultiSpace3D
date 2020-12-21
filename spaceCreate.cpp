@@ -59,7 +59,7 @@ tabType=0;
 flagTxt=0;
 newFile.setString("");
 
-adr << std::fixed << defGui<<"Arial.ttf";
+adr << std::fixed << defGui<<"FreeSerif.ttf";
 if (!font.loadFromFile(adr.str()))
 	 return EXIT_FAILURE;
 adr.clear();
