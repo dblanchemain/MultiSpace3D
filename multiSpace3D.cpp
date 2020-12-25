@@ -360,7 +360,7 @@ scaleHeight=1;
 pTheta=0.1;				// Rotation 
 pPhi=0;
 
-adr << std::fixed << defGui<<"Arial.ttf";
+adr << std::fixed << defGui<<"FreeSerif.ttf";
 if (!font.loadFromFile(adr.str()))
 	 return EXIT_FAILURE;
 adr.clear();
