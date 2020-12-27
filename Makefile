@@ -65,7 +65,7 @@ install:
 	cp -Rf Plugins $(prefix)/share/multiSpace3D/Plugins
 	cp  preferences.spc $(prefix)/share/multiSpace3D
 	cp  spaceCreate $(prefix)/share/multiSpace3D
-	chmod 755 $(prefix)/share/space3D/spaceCreate
+	chmod 755 $(prefix)/share/multiSpace3D/spaceCreate
 	
 
 clean:
@@ -75,5 +75,5 @@ clean:
 desinstall :
 	rm $(prefix)/bin/multiSpace3D.bin
 	rm $(prefix)/bin/multiSpace3D.sh
-	rm -r $(prefix)/share/space3D
+	rm -r $(prefix)/share/multiSpace3D
 	
