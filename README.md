@@ -26,7 +26,7 @@ MultiSpace3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous dev
 Le programme propose 15 greffons pour Ardour et Reaper aux formats Lv2 et VST :
 Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M17, Dominium, NHK222, ZKM23, RfStudio, Ircam, Satosphere, Klangdom, dispositifDb64.
 Vous pouvez installer ceux qui vous conviennent dans les répertoires correspondants, par exemple ~/.lv2 pour Ardour et ~/.vst pour Reaper. Sous Linux, Reaper ne reconnaît que les vst.
-Ces greffons sont indispensables pour le fonctionnement complet de l’application. ils se trouvent dans les dossiers $HOME/space3D/lv2 et $HOME/space3D/vst (vst Linux 64bits)
+Ces greffons sont indispensables pour le fonctionnement complet de l’application. ils se trouvent dans les dossiers $HOME/multiSpace3D/lv2 et $HOME/multiSpace3D/vst (vst Linux 64bits)
 Ils ont été compilés à partir des sources du Grame pour le langage Faust et sont sous licence BSD.
 Vous trouverez une archive, rassemblant tous ces greffons, pour <b>Debian/LibraZiK2</b> à <a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >cette adresse</a>
 
@@ -49,8 +49,8 @@ MultiSpace3D dépend de SFML 2,4, glm 0,9,8, d’OpenGl et de Liblo que vous dev
 
 Dans un terminal, ouvrez le dossier correspondant et tapez les commandes ;
 <pre><code>
-git clone https://github.com/dblanchemain/space3D
-cd space3D
+git clone https://github.com/dblanchemain/MultiSpace3D
+cd MultiSpace3D
 make all
 sudo make install
 
@@ -62,12 +62,12 @@ multiSpace3D.sh (pour lancer le programme)
 Make utilise la commande suivante pour compiler :
 
 <pre><code>
-$(CXX)  -std=c++17 -O3 oscSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config ` -o space3Dbin
+$(CXX)  -std=c++17 -O3 oscSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config ` -o multiSpace3Dbin
 </code></pre>
 
 Vous pouvez évidemment modifier le script d’installation s’il ne vous convient pas, mais attention au générateur de script de lancement.
 
-Pour LibraZiK2, vous pouvez télécharger les binaires de tous les greffons ici :<a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.g</a>
+Pour LibraZiK2, vous pouvez télécharger les binaires de tous les greffons ici :<a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz</a>
 
 La compilation sous Windows est identique avec Msys2.
 
