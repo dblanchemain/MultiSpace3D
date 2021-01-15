@@ -2000,7 +2000,7 @@ void saveSpace(){
 	nameFile=inpTextFile.getString();
 	std::cout << " save space " << nameFile << std::endl;
 
-	string wfile=home+"/space3D/"+nameFile+".obj";
+	string wfile=home+"/multiSpace3D/"+nameFile+".obj";
 	
 	std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
@@ -2027,7 +2027,7 @@ void openSpace(){
 	string nameFile;
 	nameFile=inpTextFile.getString();
 	std::cout << " open space " << nameFile << std::endl;
-	string wfile=home+"/space3D/"+nameFile+".obj";
+	string wfile=home+"/multiSpace3D/"+nameFile+".obj";
 	
 	int i=0;
 	std::cout << "file :"<<wfile<< std::endl;
