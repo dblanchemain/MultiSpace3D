@@ -17,7 +17,7 @@ sudo make install
 
 multiSpace3D.sh (pour lancer le programme)
 </code></pre>
-Au premier lancement, il créera un dossier space3D dans votre espace utilisateur dans lequel vous trouverez les greffons et le fichier de configuration.
+Au premier lancement, il créera un dossier multiSpace3D dans votre espace utilisateur dans lequel vous trouverez les greffons et le fichier de configuration.
 
 Cette application a été testée sous <b>Debian/LibraZiK2.</b>
 
@@ -39,7 +39,7 @@ Vous trouverez une archive, rassemblant tous ces greffons, pour <b>Debian/LibraZ
 
 Les modèles ne sont pas installés automatiquement.
 
-Le script space3D.sh suppose que le programme est bien installé en /usr/local. Ce script est indispensable, car il transmet des informations de configuration au programme.
+Le script multiSpace3D.sh suppose que le programme est bien installé en /usr/local. Ce script est indispensable, car il transmet des informations de configuration au programme.
 
 <b>Compilation</b>
 
