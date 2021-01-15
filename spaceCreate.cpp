@@ -1301,7 +1301,7 @@ void saveSpace(){
 	string nameFile;
 	nameFile=newFile.getString();
 
-	string wfile=home+"/space3D/DSP/"+nameFile+".spc";
+	string wfile=home+"/multiSpace3D/DSP/"+nameFile+".spc";
 	
 	std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
