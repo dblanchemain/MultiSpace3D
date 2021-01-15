@@ -30,8 +30,8 @@ Ces greffons sont indispensables pour le fonctionnement complet de l’applicati
 Ils ont été compilés à partir des sources du Grame pour le langage Faust et sont sous licence BSD.
 Vous trouverez une archive, rassemblant tous ces greffons, pour <b>Debian/LibraZiK2</b> à <a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >cette adresse</a>
 
-    space3D64bin constitue l'application proprement dite.
-    space3D64.sh est un script de lancement du programme. Vous pouvez l'utiliser pour un lanceur sur le bureau sans avoir besoin d'un terminal.
+    multiSpace3D.bin constitue l'application proprement dite.
+    multiSpace3D.sh est un script de lancement du programme. Vous pouvez l'utiliser pour un lanceur sur le bureau sans avoir besoin d'un terminal.
     Le dossier gui renferme les images nécessaires au fonctionnement de l'application.
     Le dossier Plugins renferme les greffons nécessaires au fonctionnement de l'application.
     Le dossier Plugins/DSP renferme les fichiers de configurations des espaces hauts-parlants et des DSP correspondants.
@@ -53,6 +53,10 @@ git clone https://github.com/dblanchemain/MultiSpace3D
 cd MultiSpace3D
 make all
 sudo make install
+</code></pre>
+Pour compiler les greffons Lv2 et Vst :
+<pre><code>
+make plugins
 
 multiSpace3D.sh (pour lancer le programme)
 </code></pre>
@@ -62,7 +66,7 @@ multiSpace3D.sh (pour lancer le programme)
 Make utilise la commande suivante pour compiler :
 
 <pre><code>
-$(CXX)  -std=c++17 -O3 oscSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config ` -o multiSpace3Dbin
+$(CXX)  -std=c++17 -O3 multiSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config --cflags --libs` -o multiSpace3D.bin
 </code></pre>
 
 Vous pouvez évidemment modifier le script d’installation s’il ne vous convient pas, mais attention au générateur de script de lancement.
