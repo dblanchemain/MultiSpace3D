@@ -1324,7 +1324,7 @@ void saveTableauHtml(){
 	string sx="";
 	string sy="";
 	string sz="";
-	string wfile=home+"/space3D/DSP/"+nameFile+".html";
+	string wfile=home+"/multiSpace3D/DSP/"+nameFile+".html";
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
@@ -1375,7 +1375,7 @@ void loadSpace(){
 	string nameFile;
 	nameFile=newFile.getString();
 
-	string wfile=home+"/space3D/DSP/"+nameFile+".spc";
+	string wfile=home+"/multiSpace3D/DSP/"+nameFile+".spc";
 	int i=0;
 	std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
@@ -1420,7 +1420,7 @@ void saveDSP(){
 	float d;
 	string nameFile;
 	nameFile=newFile.getString();
-	string wfile=home+"/space3D/DSP/"+nameFile+".dsp";
+	string wfile=home+"/multiSpace3D/DSP/"+nameFile+".dsp";
 	string prog;
 	prog=prog+"declare name        \"objMatrix"+nameFile+"\"; // modifier le nom de votre greffon\n";
    prog=prog+"declare version     \"1.0\";\n";
