@@ -22,6 +22,7 @@ sf::ContextSettings settings;
 std::string defGui;
 std::string defInstall;
 std::string home;
+std::string pref;
 sf::RectangleShape menuBar;
 sf::RectangleShape verticalBar;
 sf::RectangleShape horizontalBar;
