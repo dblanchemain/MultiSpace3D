@@ -2,7 +2,7 @@
 
 if [ -d $HOME/.config/multiSpace3D ] ; then 
 
-	echo "Le dossier de travail ($HOME)/multiSpace3D existe" 
+	echo "Le dossier de travail ($HOME)/.config/multiSpace3D existe" 
 
 else 
 
