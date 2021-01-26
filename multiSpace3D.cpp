@@ -595,7 +595,7 @@ toolType.setPosition(100,92);
 toolType.setFillColor(sf::Color(0,0,0,0));
 string s="Paramètres";
 tip[0]=sf::String::fromUtf8(s.begin(),s.end());
-s="Fichier";
+s="Fichiers";
 tip[1]=sf::String::fromUtf8(s.begin(),s.end());
 s="Sauvegarder";
 tip[2]=sf::String::fromUtf8(s.begin(),s.end());
