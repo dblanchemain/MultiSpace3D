@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=multiSpace3D
+Comment=Sound spatialization in a multi-channel environment
+Comment[fr]=Spatialisation du son dans un environnement multicanal
+Exec=multiSpace3D.sh 
+Terminal=false
+Icon=space.png
+Type=Application
+Categories=AudioVideo;Audio;
