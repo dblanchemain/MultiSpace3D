@@ -137,7 +137,7 @@ coordZtxt.setFillColor(sf::Color(0,0,0));
 labelOverAll.setFont(font);
 labelOverAll.setCharacterSize(13);
 labelOverAll.setFillColor(sf::Color(255,255,255));
-labelOverAll.setString("All");
+labelOverAll.setString("Multi");
 labelOverAll.setPosition(540,477);
 
 titreTableau.setFont(font);
