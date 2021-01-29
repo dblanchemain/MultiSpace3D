@@ -667,7 +667,7 @@ init3D();
 //																Input
 //************************************************************************************************
 labelInput.setFont(font);
-labelInput.setString("Track");
+labelInput.setString("Piste");
 labelInput.setCharacterSize(13);
 labelInput.setPosition(sf::Vector2f(8, 8));
 labelInput.setFillColor(sf::Color(0,0,0));
@@ -690,7 +690,7 @@ inpTextFile.setFillColor(sf::Color(0,0,0));
 
 
 labelInpBarText.setFont(font);
-labelInpBarText.setString("Track : ");
+labelInpBarText.setString("Piste : ");
 labelInpBarText.setCharacterSize(13);
 labelInpBarText.setPosition(sf::Vector2f(464, 5));
 labelInpBarText.setFillColor(sf::Color(0,0,0));
