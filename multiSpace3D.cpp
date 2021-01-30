@@ -38,7 +38,7 @@ adr.str("");
 adr << std::fixed << argv[1]<<"/gui";
 fileSelector.setSelectorGui(adr.str());
 fileSelector.setSelectorTheme(defInstall+"/Themes/base");
-fileSelector.setTitreSelector("File selector");
+fileSelector.setTitreSelector(L"Sélecteur de fichier");
 fileSelector.setSelectorLang(defInstall+"/Lang/divers.Fr");
 
 fileSelector.setSelectorWidth(500);
