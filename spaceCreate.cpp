@@ -80,7 +80,7 @@ nbcolonnes=10;
 curSelect=65535;
 
 base3Dy=20;
-oldWinSizeX=1050;
+oldWinSizeX=1100;
 oldWinSizeY=846;
 scaleX=1;
 scaleY=1;
