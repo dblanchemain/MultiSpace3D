@@ -138,7 +138,7 @@ labelOverAll.setFont(font);
 labelOverAll.setCharacterSize(13);
 labelOverAll.setFillColor(sf::Color(255,255,255));
 labelOverAll.setString("Multi");
-labelOverAll.setPosition(540,477);
+labelOverAll.setPosition(532,477);
 
 titreTableau.setFont(font);
 titreTableau.setCharacterSize(13);
