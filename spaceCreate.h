@@ -15,7 +15,7 @@
 #include "selectFile.h"
 
 
-sf::RenderWindow winCreate(sf::VideoMode(1050,846), "Espace",sf::Style::Close);
+sf::RenderWindow winCreate(sf::VideoMode(1100,846), "Espace",sf::Style::Close);
 sf::RenderWindow win3D;
 sf::ContextSettings settings;
 
