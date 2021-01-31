@@ -216,7 +216,7 @@ void selectFile::initSelector(string fdir){
 
 string selectFile::selector(){							
 std::cout << "gui selector " << fGui << std::endl;
-  winSelector.create(sf::VideoMode(winSelectorWidth, winSelectorHeight), titreSelector, sf::Style::Titlebar|sf::Style::Close);
+  winSelector.create(sf::VideoMode(winSelectorWidth, winSelectorHeight), L"Sélecteur de fichier", sf::Style::Titlebar|sf::Style::Close);
   listDirs(getcwd(NULL,0));
   readFiles();
   while (winSelector.isOpen()) {                                       // Événements
