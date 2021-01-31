@@ -1704,7 +1704,7 @@ void onClick(sf::Event e){
 		pTheta=2;
    }
    if(e.mouseButton.x>10 && e.mouseButton.x<34 && e.mouseButton.y>6 && e.mouseButton.y<26){
-   	winParam.create (sf::VideoMode(500,180), "Vue 3D",sf::Style::Default , settings);
+   	winParam.create (sf::VideoMode(500,180),L"Paramètres",sf::Style::Default , settings);
    }
    if(e.mouseButton.x>44 && e.mouseButton.x<72 && e.mouseButton.y>2 && e.mouseButton.y<26){
    	openSpace();
