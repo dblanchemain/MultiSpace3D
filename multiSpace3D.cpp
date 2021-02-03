@@ -2956,7 +2956,6 @@ void gain(int in){
  	   default:
  		   	break;
  		}
-	std::cout<< " dtrack "<<defTrack<<" in " <<tabEntree[in].input<<" x "<<tabEntree[in].x<<" y "<<tabEntree[in].y<<" z "<<tabEntree[in].z << std::endl;
 }
 void sendOSCcoordPluginArdour(int track,int plug,int piid,float value){
  lo::Address a(prefServeur, prefPortD);
@@ -2970,5 +2969,4 @@ void sendOSCcoordPluginReaper(int track,int piid,float value){
  adr.clear();
  adr.str("");
  a.send(message, "if", piid, value); 
- std::cout << "message reaper= "<<message<<" gain= "<<value << std::endl;
 }
