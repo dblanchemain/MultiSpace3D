@@ -6,7 +6,7 @@ PREFIX ?= /usr/local
 
 prefix := $(DESTDIR)$(PREFIX)
 
-all: multiSpace3D spaceCreate lv2
+all: multiSpace3D spaceCreate
 
 spaceCreate: spaceCreate.cpp
 	$(CXX)  -std=c++17 -O3 spaceCreate.cpp selectFile.cpp  info.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES -lboost_system -lboost_filesystem  -lpthread `pkg-config --cflags --libs` -o spaceCreate
@@ -51,8 +51,6 @@ install:
 	cp  preferences.spc $(prefix)/share/multiSpace3D
 	cp  spaceCreate $(prefix)/share/multiSpace3D
 	chmod 755 $(prefix)/share/multiSpace3D/spaceCreate
-	cp pluginsVst.sh $(prefix)/share/multiSpace3D
-	chmod 755 $(prefix)/share/multiSpace3D/pluginsVst.sh
 	cp pluginsLv2.sh $(prefix)/share/multiSpace3D
 	chmod 755 $(prefix)/share/multiSpace3D/pluginsLv2.sh
 	
