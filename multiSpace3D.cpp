@@ -2360,11 +2360,11 @@ void saveSpace(){
 	string path=getcwd(NULL,0);
 	fileSelector.initSelector(path);
 	nameFile=fileSelector.selector();
-	std::cout << " save space " << nameFile << std::endl;
+	//std::cout << " save space " << nameFile << std::endl;
 
 	string wfile=fileSelector.getPath()+"/"+nameFile;
-	std::cout << "wfile" << wfile << std::endl;
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "wfile" << wfile << std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
@@ -2396,15 +2396,15 @@ void openSpace(){
 	//std::cout << "wfile" << wfile << std::endl;
 	
 	int i=0;
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
 		ifstream fichier(wfile, ios::in);
 		if(fichier){
 			while(getline(fichier, contenu)){
-				std::cout << "ligne :"<<contenu<< std::endl;
+				//std::cout << "ligne :"<<contenu<< std::endl;
 				while ((pos = contenu.find(delimiter)) != std::string::npos) {
     				token[i] = contenu.substr(0, pos);
-    				std::cout << token[i] << std::endl;
+    				//std::cout << token[i] << std::endl;
     				i++;
     				contenu.erase(0, pos + delimiter.length());
 				}
