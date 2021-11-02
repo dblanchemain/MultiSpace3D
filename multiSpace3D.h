@@ -81,7 +81,7 @@ sf::Texture repere2;
 sf::Sprite teteDessus;
 sf::Sprite teteDroite;
 sf::Sprite teteDos;
-sf::Sprite virtual3D;
+sf::Sprite distanceFond;
 sf::Sprite preferences;
 sf::Sprite param;
 sf::Sprite selectGroupe;
@@ -107,11 +107,16 @@ sf::Sprite  tabSprite[32];
 sf::Texture  tabTexture[32];
 sf::CircleShape confDaw1;
 sf::CircleShape selectMixer;
+sf::CircleShape selectDMixer;
 sf::Sprite openFile;
 sf::Sprite file;
 sf::Sprite floppy;
 sf::Sprite fileok;
 sf::Sprite fileAnnul;
+
+float centreDx;
+float centreDy;
+
 struct speaker{			// Structure pour les enceintes  sweetspot
 		int num;
 	   float x;            // x
@@ -124,10 +129,14 @@ struct entree{				// Structure des objets 3D
 		int input;
 	   int groupe;       // groupe
 	   int track;
+	   int greffon;
 	   int flagTrack;
 	   float x;            // x
 	   float y;            //y
 	   float z;            //y
+	   float d;
+	   float dx;
+	   float dy;
 	   float r;
 	   float scale;
 	   sf::Sprite spriteD;
@@ -139,6 +148,8 @@ int defautGroupe;
 int defautTrack;
 float defautR;
 std::vector<entree> tabEntree;
+sf::Text canalTextF1;
+sf::Color genTcolor[32];
 
 bool flagFileMode;
 
@@ -152,6 +163,8 @@ void onMouseMove(sf::Event e);
 sf::Text defServeur;
 sf::Text defPort;
 sf::Text dTrack;
+sf::Text labelDt;
+sf::Text labelAide;
 int defTrack;
 
 sf::Text toolType;
@@ -173,12 +186,14 @@ void openSpace();
 //																Fenêtre Input
 //*****************************************************************************************************************
 sf::Text labelInput;
+sf::Text labelInput2;
 sf::Text labelTrack;
 sf::Text labelType;
 sf::Text labelScale;
 sf::Text labelGroupe;
 
 sf::Text carla;
+sf::Text reaper;
 
 sf::Texture inpt;
 sf::Texture bNoSelect;
@@ -186,21 +201,26 @@ sf::Texture bselect;
 sf::Texture selectC;
 sf::Texture inpbar1;
 sf::Sprite inpInput;
+sf::Sprite inpInput2;
 sf::Sprite inpTrack;
 sf::Sprite inpScale;
 sf::Sprite inpSelect;
 sf::Sprite inpGroupe;
 sf::Sprite selectGrp;
 sf::Text inpText;
+sf::Text inpText2;
 sf::Text trackText;
 sf::Text scaleText;
 sf::Text inpBarText;
+sf::Text inpBarText2;
 sf::Text trackBarText;
 sf::Text labelInpBarText;
 sf::Text labelTrackBarText;
 sf::Sprite inpBarTrack;
 sf::Sprite inpBarInput;
+sf::Sprite inpBarInput2;
 int inpIndex;
+int inpIndex2;
 bool flagTxt;
 std::string apptxt;
 
@@ -253,6 +273,7 @@ float oldPosX;
 float oldPosY;
 float oldPosZ;
 bool flagObjActif;
+bool flagDistance;
 void objetCreate();
 void delObjet(int obj);
 void delGrpObjet(int obj);
@@ -273,16 +294,21 @@ sf::Vector2f objetCoordFromP3D(float x, float y);
 sf::Vector2f objetCoordToPDroite(float x, float y);
 sf::Vector2f objetCoordToPArriere(float x, float y);
 sf::Vector3f objetCoordToP3D(float x, float y, float z);
+sf::Vector3f objetDistance(float x, float y);
 
 void quaternionRotation(float a, float b, float c, float d);
 //void quaternionRotation(float a, float b, float c);
+
+
 // *****************************************************************************************************************
 //																Gestion de l'espace
 // *****************************************************************************************************************
 int prefDAW;
 std::string prefServeur;
 int prefPortD;
-
+void defDistance(int in);
 void gain(int in);
 void sendOSCcoordPluginArdour(int track,int plug,int piid,float value);
-void sendOSCcoordPluginReaper(int track,int piid,float value);
+void sendOSCcoordPluginCarla(int track,int piid,float value);
+void sendOSCcoordPluginReaper(int track,int plug,int piid,float value);
+void sendOSCcoordPluginReaper2(int track,int plug,int piid,float value);

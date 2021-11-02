@@ -81,8 +81,8 @@ prefServeur="localhost";
 prefPortD=3819;
 */
 objMove=0;
-
-
+flagDistance=0;
+flagTxt=0;
 
 sf::Texture genimg1;
 adr << std::fixed << defGui<<"g7002.png";
@@ -384,18 +384,22 @@ teteDos.setTexture(imageF3);
 teteDos.setPosition(sf::Vector2f(172,604));
 adr.clear();
 adr.str("");
-adr << std::fixed << defGui<<"virtual3Db.png";
+adr << std::fixed << defGui<<"distance.png";
 if (!imageF4.loadFromFile(adr.str()))
   return EXIT_FAILURE;
-virtual3D.setTexture(imageF4);
-virtual3D.setPosition(sf::Vector2f(410,436));
+distanceFond.setTexture(imageF4);
+distanceFond.setPosition(sf::Vector2f(410,438));
 adr.clear();
 adr.str("");
+
+
 
 scaleWidth=1;
 scaleHeight=1;
 pTheta=0.1;				// Rotation 
 pPhi=0;
+centreDx=608.0;
+centreDy=638.0;
 
 adr << std::fixed << defGui<<"FreeSans.ttf";
 if (!font.loadFromFile(adr.str()))
@@ -513,7 +517,7 @@ adr << std::fixed << defGui<<"if3D.png";
 if (!imageF20.loadFromFile(adr.str()))
    return EXIT_FAILURE;
 winI3D.setTexture(imageF20);
-winI3D.setPosition(sf::Vector2f(700,2));
+winI3D.setPosition(sf::Vector2f(720,2));
 adr.clear();
 adr.str("");
 adr << std::fixed << defGui<<"preferences.png";
@@ -534,7 +538,7 @@ adr << std::fixed << defGui<<"spaceNew.png";
 if (!imageF24.loadFromFile(adr.str()))
    return EXIT_FAILURE;
 spaceNew.setTexture(imageF24);
-spaceNew.setPosition(sf::Vector2f(632,2));
+spaceNew.setPosition(sf::Vector2f(680,2));
 adr.clear();
 adr.str("");
 adr << std::fixed << defGui<<"open.png";
@@ -575,7 +579,7 @@ adr.str("");
 
 confDaw1.setRadius(4.f);
 confDaw1.setFillColor(sf::Color(0,0,0));
-confDaw1.setPosition(sf::Vector2f(56, 59));
+
 defServeur.setFont(font);
 defServeur.setCharacterSize(13);
 defServeur.setPosition(378-defServeur.getLocalBounds().width-2,92);
@@ -600,6 +604,50 @@ carla.setString("Carla");
 carla.setCharacterSize(13);
 carla.setPosition(74,83);
 carla.setFillColor(sf::Color(0,0,0,255));
+reaper.setFont(font);
+reaper.setString("Reaper");
+reaper.setCharacterSize(13);
+reaper.setPosition(74,110);
+reaper.setFillColor(sf::Color(0,0,0,255));
+
+canalTextF1.setFont(font);	
+canalTextF1.setString(" 1");
+canalTextF1.setCharacterSize(12);
+canalTextF1.setFillColor(sf::Color(255, 255, 255));
+string ctxt;
+genTcolor[0]=sf::Color(255, 255, 255);
+ genTcolor[1]=sf::Color(255,255,255);
+ genTcolor[2]=sf::Color(255,255,255);
+ genTcolor[3]=sf::Color(255,255,255);
+ genTcolor[4]=sf::Color(255,255,255);
+ genTcolor[5]=sf::Color(255, 255, 255);
+ genTcolor[6]=sf::Color(255,255,255);
+ genTcolor[7]=sf::Color(255,255,255);
+ genTcolor[8]=sf::Color(255,255,255);
+ genTcolor[9]=sf::Color(255,255,255);
+ genTcolor[10]=sf::Color(0, 0, 0);
+ genTcolor[11]=sf::Color(0,0,0);
+ genTcolor[12]=sf::Color(255,255,255);
+ genTcolor[13]=sf::Color(255, 255, 255);
+ genTcolor[14]=sf::Color(255,255,255);
+ genTcolor[15]=sf::Color(255, 255, 255);
+ genTcolor[16]=sf::Color(255, 255, 255);
+ genTcolor[17]=sf::Color(0, 0,0);
+ genTcolor[18]=sf::Color(0, 0, 0);
+ genTcolor[19]=sf::Color(0, 0, 0);
+ genTcolor[20]=sf::Color(0, 0, 0);
+ genTcolor[21]=sf::Color(0,0,0);
+ genTcolor[22]=sf::Color(255,255,255);
+ genTcolor[23]=sf::Color(0,0,0);
+ genTcolor[24]=sf::Color(0,0,0);
+ genTcolor[25]=sf::Color(0, 0,0);
+ genTcolor[26]=sf::Color(255,255,255);
+ genTcolor[27]=sf::Color(255,255,255);
+ genTcolor[28]=sf::Color(255,255,255);
+ genTcolor[29]=sf::Color(0,0,0);
+ genTcolor[30]=sf::Color(255,255,255);
+ genTcolor[31]=sf::Color(0,0,0);
+
 
 string s="Paramètres";
 tip[0]=sf::String::fromUtf8(s.begin(),s.end());
@@ -679,17 +727,41 @@ labelInput.setString("Piste");
 labelInput.setCharacterSize(13);
 labelInput.setPosition(sf::Vector2f(8, 8));
 labelInput.setFillColor(sf::Color(0,0,0));
+labelInput2.setFont(font);
+labelInput2.setString("Greffon");
+labelInput2.setCharacterSize(13);
+labelInput2.setPosition(sf::Vector2f(8, 38));
+labelInput2.setFillColor(sf::Color(0,0,0));
 labelGroupe.setFont(font);
 labelGroupe.setString("Groupe");
 labelGroupe.setCharacterSize(13);
-labelGroupe.setPosition(sf::Vector2f(8, 50));
+labelGroupe.setPosition(sf::Vector2f(8, 70));
 labelGroupe.setFillColor(sf::Color(0,0,0));
+
+labelDt.setFont(font);
+labelDt.setString("Rt");
+labelDt.setCharacterSize(13);
+labelDt.setPosition(sf::Vector2f(584, 5));
+labelDt.setFillColor(sf::Color(0,0,0));
+
+labelAide.setFont(font);
+labelAide.setString("Aide");
+labelAide.setCharacterSize(13);
+labelAide.setPosition(sf::Vector2f(770, 5));
+labelAide.setFillColor(sf::Color(0,0,0));
+
 
 inpText.setFont(font);
 inpText.setString("");
 inpText.setCharacterSize(13);
 inpText.setPosition(sf::Vector2f(8, 8));
 inpText.setFillColor(sf::Color(0,0,0));
+inpText2.setFont(font);
+inpText2.setString("");
+inpText2.setCharacterSize(13);
+inpText2.setPosition(sf::Vector2f(114, 38));
+inpText2.setFillColor(sf::Color(0,0,0));
+
 
 inpTextFile.setFont(font);
 inpTextFile.setString("");
@@ -707,6 +779,12 @@ inpBarText.setString("");
 inpBarText.setCharacterSize(13);
 inpBarText.setPosition(sf::Vector2f(546, 5));
 inpBarText.setFillColor(sf::Color(0,0,0));
+inpBarText2.setFont(font);
+inpBarText2.setString("");
+inpBarText2.setCharacterSize(13);
+inpBarText2.setPosition(sf::Vector2f(658, 5));
+inpBarText2.setFillColor(sf::Color(0,0,0));
+
 trackBarText.setFont(font);
 trackBarText.setString("");
 trackBarText.setCharacterSize(13);
@@ -731,12 +809,18 @@ selectMixer.setRadius(12.0);
 selectMixer.setOutlineColor(sf::Color(255, 255, 255,255));
 selectMixer.setOutlineThickness(1.0);
 
+selectDMixer.setFillColor(sf::Color(255, 0, 0,255));
+selectDMixer.setRadius(6.0);
+
+
 adr << std::fixed << defGui<<"saisie.png";												// Image de la sphère de rotation
 if (!inpt.loadFromFile(adr.str()))
    return EXIT_FAILURE;
 inpt.setSmooth(true);
 inpInput.setTexture(inpt);
 inpInput.setPosition(sf::Vector2f(74,6));
+inpInput2.setTexture(inpt);
+inpInput2.setPosition(sf::Vector2f(74,36));
 adr.clear();
 adr.str("");
 inpTrack.setTexture(inpt);
@@ -749,6 +833,8 @@ if (!inpbar1.loadFromFile(adr.str()))
 inpbar1.setSmooth(true);
 inpBarInput.setTexture(inpbar1);
 inpBarInput.setPosition(sf::Vector2f(504,3));
+inpBarInput2.setTexture(inpbar1);
+inpBarInput2.setPosition(sf::Vector2f(610,3));
 adr.clear();
 adr.str("");
 inpBarTrack.setTexture(inpbar1);
@@ -770,7 +856,7 @@ bselect.setSmooth(true);
 adr.clear();
 adr.str("");
 inpGroupe.setTexture(tabTexture[defautGroupe]);
-inpGroupe.setPosition(sf::Vector2f(88,46));
+inpGroupe.setPosition(sf::Vector2f(88,64));
 adr << std::fixed << defGui<<"objetColor.png";												// Image de la sphère de rotation
 if (!selectC.loadFromFile(adr.str()))
    return EXIT_FAILURE;
@@ -814,6 +900,7 @@ objetCreate();
 char * cstr = new char [home.length()+1];
 std::strcpy (cstr, home.c_str());
 int ncwd=chdir(cstr);
+string ctx;
 while (winPrincipale.isOpen()) {
 	sf::Event eventPrincipal;
 	sf::Event eventInput;
@@ -938,10 +1025,15 @@ while (winPrincipale.isOpen()) {
 	
 	
 	winPrincipale.draw(inpBarInput);
+	winPrincipale.draw(inpBarInput2);
 	//winPrincipale.draw(inpBarTrack);
 	winPrincipale.draw(labelInpBarText);
 	winPrincipale.draw(inpBarText);
+	winPrincipale.draw(inpBarText2);
 	winPrincipale.draw(validSp);
+	
+	winPrincipale.draw(labelDt);
+	winPrincipale.draw(labelAide);
 	
 	winPrincipale.draw(verticalBar);
 	winPrincipale.draw(horizontalBar);
@@ -953,26 +1045,50 @@ while (winPrincipale.isOpen()) {
 	winPrincipale.draw(teteDessus);
 	winPrincipale.draw(teteDroite);
 	winPrincipale.draw(teteDos);
-	winPrincipale.draw(virtual3D);
+	winPrincipale.draw(distanceFond);
 	winPrincipale.draw(spaceNew);
 	
 	for(int i=0; i<tabEntree.size();i++){
 		sf::Vector2f obj=objetCoordToPDessus(tabEntree[i].z, tabEntree[i].x);
 		tabEntree[i].spriteD.setPosition(sf::Vector2f(obj.x,obj.y));
 		winPrincipale.draw(tabEntree[i].spriteD);
+		canalTextF1.setFillColor(genTcolor[tabEntree[i].groupe]);
+		ctxt=to_string(tabEntree[i].track);
+		canalTextF1.setString(ctxt);
+          if(tabEntree[i].track<10){
+			 	canalTextF1.setPosition(sf::Vector2f(obj.x+8, obj.y+5));
+			 }else{
+			 	canalTextF1.setPosition(sf::Vector2f(obj.x+5, obj.y+5));
+			 }
+			 winPrincipale.draw(canalTextF1);
 		
 		obj=objetCoordToPDroite(tabEntree[i].z, tabEntree[i].y);
 		tabEntree[i].spriteR.setPosition(sf::Vector2f(obj.x,obj.y));
 		winPrincipale.draw(tabEntree[i].spriteR);
+		if(tabEntree[i].track<10){
+			 	canalTextF1.setPosition(sf::Vector2f(obj.x+8, obj.y+5));
+			 }else{
+			 	canalTextF1.setPosition(sf::Vector2f(obj.x+5, obj.y+5));
+			 }
+			 winPrincipale.draw(canalTextF1);
 		
 		obj=objetCoordToPArriere(tabEntree[i].x, tabEntree[i].y);
 		tabEntree[i].spriteA.setPosition(sf::Vector2f(obj.x,obj.y));
 		winPrincipale.draw(tabEntree[i].spriteA);
+		if(tabEntree[i].track<10){
+			 	canalTextF1.setPosition(sf::Vector2f(obj.x+8, obj.y+5));
+			 }else{
+			 	canalTextF1.setPosition(sf::Vector2f(obj.x+5, obj.y+5));
+			 }
+			 winPrincipale.draw(canalTextF1);
 		
-		sf::Vector3f obj2=objetCoordToP3D(tabEntree[i].x, tabEntree[i].y,tabEntree[i].z);
+		/*sf::Vector3f obj2=objetCoordToP3D(tabEntree[i].x, tabEntree[i].y,tabEntree[i].z);
 		tabEntree[i].sprite3D.setPosition(sf::Vector2f(obj2.x,obj2.y));
-		tabEntree[i].sprite3D.setScale(obj2.z,obj2.z);
+		tabEntree[i].sprite3D.setPosition(sf::Vector2f(tabEntree[i].dx,tabEntree[i].dy));
+		tabEntree[i].sprite3D.setScale(0.5,0.5);
 		winPrincipale.draw(tabEntree[i].sprite3D);
+		*/
+		
 	}
 	if(objActif!=65536){
 		sf::Vector2f obj=objetCoordToPDessus(tabEntree[objActif].z, tabEntree[objActif].x);
@@ -984,6 +1100,8 @@ while (winPrincipale.isOpen()) {
 		obj=objetCoordToPArriere(tabEntree[objActif].x, tabEntree[objActif].y);
 		selectMixer.setPosition(sf::Vector2f(obj.x,obj.y));
 		winPrincipale.draw(selectMixer);
+		selectDMixer.setPosition(sf::Vector2f(tabEntree[objActif].dx-6,tabEntree[objActif].dy-6));
+		winPrincipale.draw(selectDMixer);
 	}
 	
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){  // événements souris
@@ -1001,12 +1119,15 @@ while (winPrincipale.isOpen()) {
     	winInput.pushGLStates();
     	winInput.clear(sf::Color(203,213,217));
     	
-		winInput.draw(labelInput); 
+		winInput.draw(labelInput);
+		winInput.draw(labelInput2);
 		winInput.draw(labelGroupe);
-		winInput.draw(inpInput);     	
+		winInput.draw(inpInput);  
+		winInput.draw(inpInput2);  	
     	winInput.draw(inpGroupe);
     	
     	winInput.draw(inpText);
+    	winInput.draw(inpText2);
     	
     	if(flagInpCurseur==1){
 			if(clockCurseur.getElapsedTime()>sf::seconds(0.8f)){
@@ -1043,6 +1164,7 @@ while (winPrincipale.isOpen()) {
     	winParam.draw(defServeur);
     	winParam.draw(defPort);
     	winParam.draw(carla);
+    	winParam.draw(reaper);
     	if(flagInpCurseur==1){
 			if(clockCurseur.getElapsedTime()>sf::seconds(0.8f)){
 				winParam.draw(winInpCurseur);
@@ -1109,11 +1231,11 @@ while (winPrincipale.isOpen()) {
 void onClickInput(sf::Event e){
 	stringstream adr;
 	if (e.mouseButton.button == sf::Mouse::Left){
- 		std::cout << " Palette the left button was pressed" << std::endl;
- 		std::cout << "mouse x: " << e.mouseButton.x << std::endl;
- 		std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+ 		//std::cout << " Palette the left button was pressed" << std::endl;
+ 		//std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+ 		//std::cout << "mouse y: " << e.mouseButton.y << std::endl;
    }
-	if(e.mouseButton.x>90 && e.mouseButton.x<114 && e.mouseButton.y>48 && e.mouseButton.y<72){
+	if(e.mouseButton.x>90 && e.mouseButton.x<114 && e.mouseButton.y>66 && e.mouseButton.y<88){
 		winSelectGrp.create(sf::VideoMode(473,128), "Groupe");
 	}
 	if(e.mouseButton.x>76 && e.mouseButton.x<124  && e.mouseButton.y>8 && e.mouseButton.y<28){
@@ -1124,29 +1246,63 @@ void onClickInput(sf::Event e){
 	 	flagInpCurseur=1;
 	 	clockCurseur.restart();
    }
+   if(e.mouseButton.x>76 && e.mouseButton.x<124  && e.mouseButton.y>38 && e.mouseButton.y<58){
+   	inpIndex=2;
+   	apptxt="";
+   	inpText2.setString("");
+   	winInpCurseur.setPosition(120,42);
+	 	flagInpCurseur=1;
+	 	clockCurseur.restart();
+   }
    
    
    if(e.mouseButton.x>126 && e.mouseButton.x<138 && e.mouseButton.y>10 && e.mouseButton.y<20){
-   	int dp=tabEntree[objActif].input;
+   	int dp=tabEntree[objActif].track;
    	dp=dp+1;
    	if(dp>64){
    		dp=64;
    	}
-   	tabEntree[objActif].input=dp;
+   	tabEntree[objActif].track=dp;
    	string s=to_string(dp);
    	inpText.setString(s);
    	inpText.setPosition(120-inpText.getLocalBounds().width-2,10);
+   	inpBarText.setString(to_string(tabEntree[objActif].track));
+      inpBarText.setPosition(551-inpBarText.getLocalBounds().width-2,4);
    }
-   if(e.mouseButton.x>126 && e.mouseButton.x<138 && e.mouseButton.y>20 && e.mouseButton.y<30){
-   	int dp=tabEntree[objActif].input;
+   if(e.mouseButton.x>126 && e.mouseButton.x<138 && e.mouseButton.y>21 && e.mouseButton.y<30){
+   	int dp=tabEntree[objActif].track;
    	dp=dp-1;
    	if(dp<0){
    		dp=0;
    	}
-   	tabEntree[objActif].input=dp;
+   	tabEntree[objActif].track=dp;
    	string s=to_string(dp);
    	inpText.setString(s);
    	inpText.setPosition(120-inpText.getLocalBounds().width-2,10);
+   	inpBarText.setString(to_string(tabEntree[objActif].track));
+      inpBarText.setPosition(551-inpBarText.getLocalBounds().width-2,4);
+   }
+   if(e.mouseButton.x>126 && e.mouseButton.x<138 && e.mouseButton.y>40 && e.mouseButton.y<50){
+   	int dp=tabEntree[objActif].greffon;
+   	dp=dp+1;
+   	if(dp>64){
+   		dp=64;
+   	}
+   	tabEntree[objActif].greffon=dp;
+   	string s=to_string(dp);
+   	inpText2.setString(s);
+   	inpText2.setPosition(120-inpText2.getLocalBounds().width-2,38);
+   }
+   if(e.mouseButton.x>126 && e.mouseButton.x<138 && e.mouseButton.y>50 && e.mouseButton.y<60){
+   	int dp=tabEntree[objActif].greffon;
+   	dp=dp-1;
+   	if(dp<0){
+   		dp=0;
+   	}
+   	tabEntree[objActif].greffon=dp;
+   	string s=to_string(dp);
+   	inpText2.setString(s);
+   	inpText2.setPosition(120-inpText2.getLocalBounds().width-2,38);
    }
    
    if(e.mouseButton.x>75 && e.mouseButton.x<90 && e.mouseButton.y>72 && e.mouseButton.y<86){
@@ -1167,6 +1323,7 @@ void newInputText(sf::Event e){
    if (e.text.unicode < 128){
 		if(key==8){
 	      apptxt=apptxt.substr(0,apptxt.length()-1);
+	      
 	 	}else{
 			apptxt=apptxt+static_cast<char>(e.text.unicode);
 			flagTxt=1;
@@ -1177,11 +1334,20 @@ void newInputText(sf::Event e){
        				apptxt="1";
        			}
        			adr << std::fixed<< std::setprecision(0)<<apptxt;
-       			tabEntree[objActif].input=stoi(adr.str());
-       			inpText.setString(to_string(tabEntree[objActif].input));
+       			tabEntree[objActif].track=stoi(adr.str());
+       			inpText.setString(to_string(tabEntree[objActif].track));
        			inpText.setPosition(118-inpText.getLocalBounds().width-2,10);
-       			inpBarText.setString(to_string(tabEntree[objActif].input));
+       			inpBarText.setString(to_string(tabEntree[objActif].track));
        			inpBarText.setPosition(551-inpBarText.getLocalBounds().width-2,4);
+       			break;
+       		case 2:
+       			if(apptxt==""){
+       				apptxt="1";
+       			}
+       			adr << std::fixed<< std::setprecision(0)<<apptxt;
+       			tabEntree[objActif].greffon=stoi(adr.str());
+       			inpText2.setString(to_string(tabEntree[objActif].greffon));
+       			inpText2.setPosition(120-inpText2.getLocalBounds().width-2,40);
        			break;
        		default:
        			break;
@@ -1346,8 +1512,8 @@ void drawSprite(){
    }
 }
 void onMouseMove3(sf::Event e){  
-std::cout << "Window 3D mouse x: " << e.mouseMove.x << std::endl;
-   std::cout << "mouse y: " << e.mouseMove.y << std::endl;                    
+	//std::cout << "Window 3D mouse x: " << e.mouseMove.x << std::endl;
+   //std::cout << "mouse y: " << e.mouseMove.y << std::endl;                    
 	  if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 	   	if(e.mouseMove.x<oldX){
 	   			Theta+=0.5;
@@ -1382,8 +1548,8 @@ void onButtonPressed3(){
   if(win3D.hasFocus()){
   sf::Vector2i position = sf::Mouse::getPosition(win3D);                       // Rotation avec la Sphère
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		std::cout << "buttonPressed 3D mouse x: " << position.x << std::endl;
-      std::cout << "mouse y: " << position.y << std::endl;
+		//std::cout << "buttonPressed 3D mouse x: " << position.x << std::endl;
+      //std::cout << "mouse y: " << position.y << std::endl;
 		if(position.x>48*w3WxScale && position.x<58*w3WxScale && position.y>630*w3HyScale && position.y<650*w3HyScale){
 		  Phi+=0.5;
 		  if (Phi > 40){
@@ -1445,8 +1611,8 @@ void onEventResized(sf::Event e){
    float fh=winPrincipale.getSize().y;
    scaleWidth=fw/810;
    scaleHeight=fh/838;
-   std::cout << " scaleWidth: " << scaleWidth <<" scaleHeight: " << scaleHeight <<std::endl;
-   std::cout << " e.size.width: " << e.size.width << " e.size.height: " << e.size.height <<std::endl;
+   //std::cout << " scaleWidth: " << scaleWidth <<" scaleHeight: " << scaleHeight <<std::endl;
+   //std::cout << " e.size.width: " << e.size.width << " e.size.height: " << e.size.height <<std::endl;
    
    
    verticalBar.setSize(sf::Vector2f(10,e.size.height));
@@ -1475,8 +1641,8 @@ void onEventResized(sf::Event e){
 	teteDroite.setScale(sf::Vector2f(scaleWidth, scaleHeight));
 	teteDos.setPosition(sf::Vector2f(172*scaleWidth,604*scaleHeight));
 	teteDos.setScale(sf::Vector2f(scaleWidth, scaleHeight));
-	virtual3D.setPosition(sf::Vector2f(410*scaleWidth,436*scaleHeight));
-	virtual3D.setScale(sf::Vector2f(scaleWidth, scaleHeight));
+	distanceFond.setPosition(sf::Vector2f(410*scaleWidth,436*scaleHeight));
+	distanceFond.setScale(sf::Vector2f(scaleWidth, scaleHeight));
 }
 void mouseWheel(sf::Event e){
 	if (e.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel){
@@ -1514,7 +1680,8 @@ void onButtonPressedOutils(){
    }
 }
 void onKeyPressed(sf::Event e){
-	std::cout << "event.key.code "<<e.key.code << std::endl;
+	flagTxt=0;
+	//std::cout << "event.key.code "<<e.key.code << std::endl;
 	if (e.key.code == 76){
 		tabEntree[objActif].x=tabEntree[objActif].x+0.1;
 		tabEntree[objActif].z=tabEntree[objActif].z-0.1;
@@ -1565,13 +1732,22 @@ void onKeyPressed(sf::Event e){
 	if (e.key.code == 2){
 		defGrpExpansion(-0.01);
 	}
+	if (e.key.code == 23){
+		rotateX3D();
+	}
+	if (e.key.code == 24){
+		rotateY3D();
+	}
+	if (e.key.code == 25){
+		rotateZ3D();
+	}
 }
 
 void onClick(sf::Event e){
 	if (e.mouseButton.button == sf::Mouse::Left){
- 		std::cout << " Palette the left button was pressed" << std::endl;
- 		std::cout << "mouse x: " << e.mouseButton.x << std::endl;
- 		std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+ 		//std::cout << " Palette the left button was pressed" << std::endl;
+ 		//std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+ 		//std::cout << "mouse y: " << e.mouseButton.y << std::endl;
    }
    
    if(e.mouseButton.x<verticalBar.getPosition().x && e.mouseButton.y<horizontalBar.getPosition().y){
@@ -1582,11 +1758,14 @@ void onClick(sf::Event e){
 				flagObjActif=1;
 				oldPosX=e.mouseButton.x;
 				oldPosY=e.mouseButton.y;
-				inpBarText.setString(to_string(tabEntree[objActif].input));
+				inpBarText.setString(to_string(tabEntree[objActif].track));
 				if (e.mouseButton.button == sf::Mouse::Right){
 					winInput.create(sf::VideoMode(150,94), "Input");
-					trackBarText.setString(to_string(tabEntree[objActif].track));
+					inpText.setString(to_string(tabEntree[objActif].track));
+					inpText2.setString(to_string(tabEntree[objActif].greffon));
+
 					scaleText.setString(to_string(tabEntree[objActif].scale));
+
 				}
 				break;
 			}
@@ -1596,7 +1775,7 @@ void onClick(sf::Event e){
    		sf::Vector2f obj=objetCoordFromPDessus(e.mouseButton.x, e.mouseButton.y);
    		tabEntree[objActif].z=obj.x;
    		tabEntree[objActif].x=obj.y;
-   		inpBarText.setString(to_string(tabEntree[objActif].input));
+   		inpBarText.setString(to_string(tabEntree[objActif].track));
    	}
    }
    if(e.mouseButton.x>verticalBar.getPosition().x+10 && e.mouseButton.y<horizontalBar.getPosition().y){
@@ -1607,9 +1786,11 @@ void onClick(sf::Event e){
 				flagObjActif=1;
 				oldPosX=e.mouseButton.x;
 				oldPosY=e.mouseButton.y;
-				inpBarText.setString(to_string(tabEntree[objActif].input));
+				inpBarText.setString(to_string(tabEntree[objActif].track));
 				if (e.mouseButton.button == sf::Mouse::Right){
 					winInput.create(sf::VideoMode(150,94), "Input");
+					inpText.setString(to_string(tabEntree[objActif].track));
+					inpText2.setString(to_string(tabEntree[objActif].greffon));
 					trackBarText.setString(to_string(tabEntree[objActif].track));
 					scaleText.setString(to_string(tabEntree[objActif].scale));
 				}
@@ -1630,9 +1811,11 @@ void onClick(sf::Event e){
 				flagObjActif=1;
 				oldPosX=e.mouseButton.x;
 				oldPosY=e.mouseButton.y;
-				inpBarText.setString(to_string(tabEntree[objActif].input));
+				inpBarText.setString(to_string(tabEntree[objActif].track));
 				if (e.mouseButton.button == sf::Mouse::Right){
 					winInput.create(sf::VideoMode(150,94), "Input");
+					inpText.setString(to_string(tabEntree[objActif].track));
+					inpText2.setString(to_string(tabEntree[objActif].greffon));
 					trackBarText.setString(to_string(tabEntree[objActif].track));
 					scaleText.setString(to_string(tabEntree[objActif].scale));
 				}
@@ -1644,20 +1827,23 @@ void onClick(sf::Event e){
    		tabEntree[objActif].y=obj.y;
    	}
    }
-   if(e.mouseButton.x>verticalBar.getPosition().x+10 && e.mouseButton.y>horizontalBar.getPosition().y+10){
-	   for(int i=0; i<tabEntree.size();i++){
-			sf::Vector3f obj=objetCoordToP3D(tabEntree[i].x, tabEntree[i].y,tabEntree[i].z);
-			if(e.mouseButton.x>obj.x && e.mouseButton.x<obj.x+(24*obj.z) && e.mouseButton.y>obj.y && e.mouseButton.y<obj.y+(24*obj.z)){
-				objActif=i;
-				flagObjActif=1;
-				std::cout << " objActif 3D " <<objActif<< std::endl;
-				break;
-			}
-	   }
+   if(e.mouseButton.x>verticalBar.getPosition().x+10 && e.mouseButton.y>horizontalBar.getPosition().y+10){   // click distance
+   	if(flagDistance==0){
+   		flagDistance=1;
+   	}else{
+   		flagDistance=0;
+   	}
 	   if(objActif!=65536){
-   		sf::Vector2f obj=objetCoordFromP3D(e.mouseButton.x, e.mouseButton.y);
-   		tabEntree[objActif].x=obj.x;
-   		tabEntree[objActif].y=obj.y;
+ 			sf::Vector3f obj=objetDistance(e.mouseButton.x,e.mouseButton.y);
+ 			float dt=1-(obj.z/192);
+      	if(dt>0){
+				tabEntree[objActif].dx=e.mouseButton.x;
+   			tabEntree[objActif].dy=e.mouseButton.y;
+   			tabEntree[objActif].d=dt;
+   			defDistance(objActif);
+   		}
+   		
+   		//std::cout << " cx1 " <<tabEntree[objActif].dx<< " cy1 " <<tabEntree[objActif].dy<< " d " <<tabEntree[objActif].d<< std::endl;
    	}
    }
    
@@ -1698,19 +1884,27 @@ void onClick(sf::Event e){
    	rotateZ3D();
    }
    if(e.mouseButton.x>508 && e.mouseButton.x<554 && e.mouseButton.y>6 && e.mouseButton.y<26){
+   	flagTxt=1;
+   	inpIndex=1;
    	apptxt="";
    	inpBarText.setString("");
    }
-   if(e.mouseButton.x>562 && e.mouseButton.x<576&& e.mouseButton.y>6 && e.mouseButton.y<26){
-   	nSelectMixer();
+   if(e.mouseButton.x>612 && e.mouseButton.x<660 && e.mouseButton.y>6 && e.mouseButton.y<26){
+   	flagTxt=1;
+   	inpIndex=2;
+   	apptxt="";
+   	inpBarText2.setString("");
    }
-   if(e.mouseButton.x>700 && e.mouseButton.x<724 && e.mouseButton.y>6 && e.mouseButton.y<26){
+   if(e.mouseButton.x>562 && e.mouseButton.x<576&& e.mouseButton.y>6 && e.mouseButton.y<26){
+  		flagTxt=0;
+     	nSelectMixer();
+   }
+   if(e.mouseButton.x>720 && e.mouseButton.x<745 && e.mouseButton.y>6 && e.mouseButton.y<26){
    	win3D.create (sf::VideoMode(800,800), "Vue 3D",sf::Style::Close , settings);
 		init3D();
 		drawWine3D=1;
 		tx=-0.16;
 		ty=0.01;
-		pTheta=2;
    }
    if(e.mouseButton.x>10 && e.mouseButton.x<34 && e.mouseButton.y>6 && e.mouseButton.y<26){
    	winParam.create (sf::VideoMode(500,180), L"Paramètres",sf::Style::Default , settings);
@@ -1721,17 +1915,25 @@ void onClick(sf::Event e){
    if(e.mouseButton.x>74 && e.mouseButton.x<102 && e.mouseButton.y>2 && e.mouseButton.y<26){
    	saveSpace();
    }
-   if(e.mouseButton.x>634 && e.mouseButton.x<662 && e.mouseButton.y>2 && e.mouseButton.y<28){
+   if(e.mouseButton.x>681 && e.mouseButton.x<710 && e.mouseButton.y>2 && e.mouseButton.y<28){
    	std::cout << " newSurface" << std::endl;
    	newSurface();
    }
+   if(e.mouseButton.x>768 && e.mouseButton.x<798 && e.mouseButton.y>1 && e.mouseButton.y<28){
+		system("firefox http://blanchemain.info/Documents/Programmation/index.php?page=multiSpace3D");
+	}
 }
 void onMouseUp(sf::Event e){
 	flagObjActif=0;
+	flagTxt=0;
+	if(flagDistance==1){
+		flagDistance=0;
+		
+	}
 }
 void onMouseMove(sf::Event e){
-	std::cout << "Window Dessus mouse x: " << e.mouseMove.x << std::endl;
-   std::cout << "mouse y: " << e.mouseMove.y << std::endl;
+ 		//std::cout << "mouse x: " << e.mouseMove.x << std::endl;
+ 		//std::cout << "mouse y: " << e.mouseMove.y << std::endl;
    
    if(e.mouseMove.y<30){
    	if(e.mouseMove.x>0 && e.mouseMove.x<36){
@@ -1886,6 +2088,7 @@ void onMouseMove(sf::Event e){
 	}
 	objetCoordFromPDessus(e.mouseMove.x, e.mouseMove.y);
 	if(flagObjActif==1 && e.mouseMove.x<verticalBar.getPosition().x && e.mouseMove.y<horizontalBar.getPosition().y){
+		
 		sf::Vector2f obj=objetCoordFromPDessus(e.mouseMove.x, e.mouseMove.y);
 		float mx;
 		float my;
@@ -2005,6 +2208,7 @@ void onMouseMove(sf::Event e){
 	}
 	if(flagObjActif==1 && e.mouseMove.x<verticalBar.getPosition().x && e.mouseMove.y>horizontalBar.getPosition().y+10){
 		sf::Vector2f obj=objetCoordFromPArriere(e.mouseMove.x, e.mouseMove.y);
+		
 		float mx;
 		float my;
 		switch (objMove){
@@ -2062,66 +2266,53 @@ void onMouseMove(sf::Event e){
 		oldPosX=e.mouseMove.x;
 		oldPosY=e.mouseMove.y;
 	}
-	if(flagObjActif==1 && e.mouseMove.x>verticalBar.getPosition().x+10 && e.mouseMove.y>horizontalBar.getPosition().y+10){
-		sf::Vector2f obj=objetCoordFromP3D(e.mouseMove.x, e.mouseMove.y);
-		float mx;
+
+	if(flagDistance==1 && e.mouseMove.x>verticalBar.getPosition().x+10 && e.mouseMove.y>horizontalBar.getPosition().y+10){ // move distance
+      sf::Vector3f obj=objetDistance(e.mouseMove.x,e.mouseMove.y);
+      float dt=1-(obj.z/192);
+      
+   	//std::cout << " cx1 " <<tabEntree[objActif].dx<< " cy1 " <<tabEntree[objActif].dy<< " d " <<dt<< std::endl;	
 		float my;
+		float mx;
 		switch (objMove){
 			case 0:
-				tabEntree[objActif].x=obj.x;
-				tabEntree[objActif].y=obj.y;
-				gain(objActif);
+				if(dt>0){
+					tabEntree[objActif].dx=e.mouseMove.x;
+	   			tabEntree[objActif].dy=e.mouseMove.y;
+	   			tabEntree[objActif].d=1-(obj.z/96);
+	   		}
+				defDistance(objActif);
 				break;
 			case 1:
-				mx=(e.mouseMove.x-oldPosX)*(2.0/verticalBar.getPosition().x);
-				my=(e.mouseMove.y-oldPosY)*(2.0/(horizontalBar.getPosition().y-26));
-				
 				for(int i=0;i<tabEntree.size();i++){
 					if(tabEntree[i].groupe==tabEntree[objActif].groupe){
-						tabEntree[i].x=tabEntree[i].x+mx;
-						tabEntree[i].y=tabEntree[i].y+my;
-						if(tabEntree[i].x<-1){
-							tabEntree[i].x=-1;
-						}
-						if(tabEntree[i].x>1){
-							tabEntree[i].x=1;
-						}
-						if(tabEntree[i].y<-1){
-							tabEntree[i].y=-1;
-						}
-						if(tabEntree[i].y>1){
-							tabEntree[i].y=1;
-						}
-						gain(i);
+						if(dt>0){
+							tabEntree[i].dx=e.mouseMove.x;
+	   					tabEntree[i].dy=e.mouseMove.y;
+	   					tabEntree[i].d=1-(obj.z/96);
+	   				}
+					defDistance(i);
 					}
 				}
 			   break;
 			case 2:
-				mx=(e.mouseMove.x-oldPosX)*(2.0/verticalBar.getPosition().x);
-				my=(e.mouseMove.y-oldPosY)*(2.0/verticalBar.getPosition().x);
 				for(int i=0;i<tabEntree.size();i++){
-						tabEntree[i].x=tabEntree[i].x+mx;
-						tabEntree[i].y=tabEntree[i].y+my;
-						if(tabEntree[i].x<-1){
-							tabEntree[i].x=-1;
-						}
-						if(tabEntree[i].x>1){
-							tabEntree[i].x=1;
-						}
-						if(tabEntree[i].y<-1){
-							tabEntree[i].y=-1;
-						}
-						if(tabEntree[i].y>1){
-							tabEntree[i].y=1;
-						}
-						gain(i);
+					if(dt>0){
+						tabEntree[i].dx=e.mouseMove.x;
+   					tabEntree[i].dy=e.mouseMove.y;
+   					tabEntree[i].d=1-(obj.z/96);
+   				}
+						defDistance(i);
 				}
 			   break;
 		}
+		
 		oldPosX=e.mouseMove.x;
 		oldPosY=e.mouseMove.y;
 	}
 }
+
+
 void refInput(sf::Event e){
    int key=e.key.code;
    stringstream adr;
@@ -2132,12 +2323,27 @@ void refInput(sf::Event e){
 			apptxt=apptxt+static_cast<char>(e.text.unicode);
 			flagTxt=1;
 		}
-		if(apptxt==""){
-       	apptxt="0";
-      }
-      inpBarText.setString(apptxt);
-      inpBarText.setPosition(551-inpBarText.getLocalBounds().width-2,4);	    
+		switch (inpIndex){
+       		case 1:
+       			inpBarText.setString(apptxt);
+	      		inpBarText.setPosition(551-inpBarText.getLocalBounds().width-6,4);
+	      		inpIndex=0;
+       			break;
+       		case 2:
+       			if(apptxt==""){
+       				apptxt="1";
+       			}
+       			adr << std::fixed<< std::setprecision(0)<<apptxt;
+       			pTheta=stoi(adr.str());
+       			inpBarText2.setString(to_string((int)pTheta));
+       			inpBarText2.setPosition(658-inpBarText2.getLocalBounds().width-6,4);
+       			break;
+       		default:
+       			break;
+	    }
+	    
    }
+   
 }
 void newInstanceSpace(){
 	string defApp=defInstall+"/multiSpace3D.sh &";
@@ -2147,7 +2353,6 @@ void newSurface(){
 	string cmd=defInstall+"/spaceCreate " +defInstall+" "+home+" &";
    char* dest = new char[cmd.length() + 1];
    std::copy(cmd.begin(), cmd.end(), dest);
-   std::cout << " dest: " << dest << std::endl;
    system(dest);
 }
 
@@ -2164,7 +2369,7 @@ void saveSpace(){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
 			for(int i=0;i<tabEntree.size();i++){
-				fichier<<tabEntree[i].input<<","<<tabEntree[i].groupe<<","<<tabEntree[i].x<<","<<tabEntree[i].y<<","<<tabEntree[i].z<<","<< endl;
+				fichier<<tabEntree[i].input<<","<<tabEntree[i].track<<","<<tabEntree[i].greffon<<","<<tabEntree[i].groupe<<","<<tabEntree[i].x<<","<<tabEntree[i].y<<","<<tabEntree[i].z<<","<<tabEntree[i].dx<<","<<tabEntree[i].dy<<","<<tabEntree[i].d<<","<< endl;
 		   }
 	   }else{  // sinon
      		cerr << "Erreur à l'ouverture du fichier!" << endl;
@@ -2180,15 +2385,15 @@ void openSpace(){
 	std::string::size_type sz;
 	string contenu;
 	size_t pos = 0;
-	std::string token[5];
+	std::string token[10];
 	std::string delimiter = ",";
 	entree nsp;
 	tabEntree.clear(); 
 	//string nameFile;
 	//nameFile=inpTextFile.getString();
-	std::cout << "path "<< fileSelector.getPath()<<" open space " << nameFile << std::endl;
+	//std::cout << "path "<< fileSelector.getPath()<<" open space " << nameFile << std::endl;
 	string wfile=fileSelector.getPath()+"/"+nameFile;
-	std::cout << "wfile" << wfile << std::endl;
+	//std::cout << "wfile" << wfile << std::endl;
 	
 	int i=0;
 	std::cout << "file :"<<wfile<< std::endl;
@@ -2205,10 +2410,15 @@ void openSpace(){
 				}
 				i=0;
 				nsp.input=stoi(token[0]);
-				nsp.groupe=stoi(token[1]);
-				nsp.x=stof(token[2],&sz);
-				nsp.y=stof(token[3]);
-				nsp.z=stof(token[4]);
+				nsp.track=stoi(token[1]);
+				nsp.greffon=stoi(token[2]);
+				nsp.groupe=stoi(token[3]);
+				nsp.x=stof(token[4],&sz);
+				nsp.y=stof(token[5]);
+				nsp.z=stof(token[6]);
+				nsp.dx=stof(token[7],&sz);
+				nsp.dy=stof(token[8]);
+				nsp.d=stof(token[9]);
 				nsp.r=defautR;
 		      nsp.scale=1;
 				
@@ -2242,19 +2452,21 @@ void newParamText(sf::Event e){
 			apptxt=apptxt+static_cast<char>(e.text.unicode);
 			flagTxt=1;
 		}
-		switch (inpIndex){
+		switch (inpIndex2){
        		case 1:
        			prefServeur=apptxt;
        			defServeur.setString(apptxt);
        			defServeur.setPosition(378-defServeur.getLocalBounds().width-2,92);
        			break;
        		case 2:
-	       			adr << std::fixed<< std::setprecision(0)<<apptxt;
-	       			prefPortD=stoi(adr.str());
-	       			defPort.setString(to_string(prefPortD));
-	       			defPort.setPosition(458-defPort.getLocalBounds().width-2,92);
-	       			adr.clear();
-  						adr.str(""); 
+       				if(apptxt.length()>0){
+		       			adr << std::fixed<< std::setprecision(0)<<apptxt;
+		       			prefPortD=stoi(adr.str());
+		       			defPort.setString(to_string(prefPortD));
+		       			defPort.setPosition(458-defPort.getLocalBounds().width-2,92);
+		       			adr.clear();
+	  						adr.str("");
+  						} 
        			break;
        		default:
        			break;
@@ -2265,9 +2477,9 @@ void newParamText(sf::Event e){
 }
 void onClickParam(sf::Event e){
 	if (e.mouseButton.button == sf::Mouse::Left){
- 		std::cout << " Palette the left button was pressed" << std::endl;
- 		std::cout << "mouse x: " << e.mouseButton.x << std::endl;
- 		std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+ 		//std::cout << " Palette the left button was pressed" << std::endl;
+ 		//std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+ 		//std::cout << "mouse y: " << e.mouseButton.y << std::endl;
    }
    if(e.mouseButton.x>54 && e.mouseButton.x<68 && e.mouseButton.y>58 && e.mouseButton.y<72){
    	confDaw1.setPosition(sf::Vector2f(56, 59));
@@ -2277,8 +2489,12 @@ void onClickParam(sf::Event e){
    	confDaw1.setPosition(sf::Vector2f(56, 87));
    	prefDAW=1;
    }
+   if(e.mouseButton.x>54 && e.mouseButton.x<68 && e.mouseButton.y>114 && e.mouseButton.y<130){
+   	confDaw1.setPosition(sf::Vector2f(56, 114));
+   	prefDAW=2;
+   }
    if(e.mouseButton.x>294 && e.mouseButton.x<380 && e.mouseButton.y>92 && e.mouseButton.y<112){
-   	inpIndex=1;
+   	inpIndex2=1;
    	apptxt="";
    	defServeur.setString("");
    	winInpCurseur.setPosition(378,94);
@@ -2286,7 +2502,7 @@ void onClickParam(sf::Event e){
 	 	clockCurseur.restart();
 	}
 	if(e.mouseButton.x>416 && e.mouseButton.x<462 && e.mouseButton.y>92 && e.mouseButton.y<112){
-   	inpIndex=2;
+   	inpIndex2=2;
    	apptxt="";
    	defPort.setString("");
    	winInpCurseur.setPosition(458,94);
@@ -2317,7 +2533,6 @@ void validerParam(){
    }else{  // sinon
      cerr << "Erreur à l'ouverture Préférences!" << endl;
 	}
-	std::cout << "write préférences: " << cstr <<"/"<<nameFile<< std::endl;
 }
 void readParam(){
 	char * cstr = new char [pref.length()+1];
@@ -2355,10 +2570,19 @@ void readParam(){
    }else{  // sinon
      cerr << "Erreur à l'ouverture Préférences!" << endl;
 	}
+	if(prefDAW==0){
+  		confDaw1.setPosition(sf::Vector2f(56, 59));
+	}
+   if(prefDAW==1){
+   	confDaw1.setPosition(sf::Vector2f(56, 87));
+   }
+   if(prefDAW==2){
+   	confDaw1.setPosition(sf::Vector2f(56, 114));
+	}	
 }
 void onMouseMoveParam(sf::Event e){
-	std::cout << "Window Param mouse x: " << e.mouseMove.x << std::endl;
-   std::cout << "mouse y: " << e.mouseMove.y << std::endl;
+	//std::cout << "Window Param mouse x: " << e.mouseMove.x << std::endl;
+   //std::cout << "mouse y: " << e.mouseMove.y << std::endl;
    
 }
 
@@ -2391,10 +2615,14 @@ void objetCreate(){
 	ngen.input=tabEntree.size();
 	ngen.groupe=defautGroupe;
 	ngen.track=defautTrack;
+	ngen.greffon=1;
 	ngen.flagTrack=0;
 	ngen.x=0.0;
 	ngen.y=0.0;
 	ngen.z=0.0;
+	ngen.d=0.0;
+	ngen.dx=centreDx;
+	ngen.dy=centreDy;
 	ngen.r=defautR;
 	ngen.scale=1;
 	ngen.spriteD.setTexture(tabTexture[defautGroupe]);
@@ -2403,8 +2631,8 @@ void objetCreate(){
 	ngen.sprite3D.setTexture(tabTexture[defautGroupe]);
 	tabEntree.push_back(ngen);
 	objActif=tabEntree.size()-1;
-	inpBarText.setString(to_string(objActif));
-	inpText.setString(to_string(objActif));
+	inpBarText.setString(to_string(tabEntree[objActif].track));
+	inpText.setString(to_string(tabEntree[objActif].track));
 	inpText.setPosition(120-inpText.getLocalBounds().width-2,10);
 	gain(objActif);
 std::cout << " objetCreate "<< tabEntree.size()<< std::endl;
@@ -2415,10 +2643,10 @@ void nSelectMixer(){
 	int nwMixer=stoi(s);
 	int flag=0;
 	for(int i=0;i<tabEntree.size();i++){
-		if(tabEntree[i].input==nwMixer){
+		if(tabEntree[i].track==nwMixer){
 			objActif=i;
 			flag=1;
-			inpText.setString(to_string(objActif));
+			inpText.setString(to_string(tabEntree[i].track));
 			break;
 		}
 	}
@@ -2427,10 +2655,14 @@ void nSelectMixer(){
 		ngen.input=nwMixer;
 		ngen.groupe=defautGroupe;
 		ngen.track=stoi(s);
+		ngen.greffon=1;
 		ngen.flagTrack=0;
 		ngen.x=0.0;
 		ngen.y=0.0;
 		ngen.z=0.0;
+		ngen.d=0.0;
+		ngen.dx=centreDx;
+	   ngen.dy=centreDy;
 		ngen.r=defautR;
 		ngen.scale=1;
 		ngen.spriteD.setTexture(tabTexture[defautGroupe]);
@@ -2441,8 +2673,8 @@ void nSelectMixer(){
 		objActif=tabEntree.size()-1;
 		string s=inpBarText.getString();
 		inpText.setString(s);
-		tabEntree[objActif].input=stoi(s);
-		inpBarText.setString(to_string(nwMixer));
+		tabEntree[objActif].track=stoi(s);
+		inpBarText.setString(to_string(tabEntree[objActif].track));
 		gain(objActif);
 	}
 }
@@ -2468,6 +2700,16 @@ sf::Vector2f objetCoordToPArriere(float x, float y){
 	float cy1= (y*((horizontalBar.getPosition().y-28)/2.0))+(((horizontalBar.getPosition().y-28)/2.0)+28)-(12*scaleHeight)+(horizontalBar.getPosition().y-22);
 	return sf::Vector2f(cx1,cy1);
 }
+
+sf::Vector3f objetDistance(float x, float y){
+	float d;
+   float cx1= x;
+	float cy1= y;
+   			
+   d=sqrt(pow((centreDx*scaleWidth)-cx1,2)+pow((centreDy*scaleHeight)-cy1,2));
+   
+	return sf::Vector3f(x,y,d);
+}
 sf::Vector3f objetCoordToP3D(float x, float y, float z){
 	float lscale=((z*(verticalBar.getPosition().x/2.0))-(verticalBar.getPosition().x/2.0))/verticalBar.getPosition().x;
 	if(lscale<0){
@@ -2477,7 +2719,7 @@ sf::Vector3f objetCoordToP3D(float x, float y, float z){
 		lscale=0.33;
 	}
 	float cx1= ((x*lscale*((verticalBar.getPosition().x)/2.0)+((verticalBar.getPosition().x+10)/2.0))+verticalBar.getPosition().x+10)-(12*scaleHeight);
-	float cy1= (y*lscale*((horizontalBar.getPosition().y-28)/2.0))+(((horizontalBar.getPosition().y-28)/2.0))-(12*scaleHeight)+(horizontalBar.getPosition().y+10);
+	float cy1= ((y*lscale*((horizontalBar.getPosition().y-28)/2.0))+(((horizontalBar.getPosition().y-28)/2.0))-(12*scaleHeight)+(horizontalBar.getPosition().y+10))+2;
 	
 	return sf::Vector3f(cx1,cy1,lscale);
 }
@@ -2533,6 +2775,7 @@ sf::Vector2f objetCoordFromPArriere(float x, float y){
 	return sf::Vector2f(cx1,cy1);
 }
 sf::Vector2f objetCoordFromP3D(float x, float y){
+	/*
 	float cx1=(2.0/verticalBar.getPosition().x)*(x-((verticalBar.getPosition().x/2.0)+verticalBar.getPosition().x+10));
 	float cy1=(2.0/(horizontalBar.getPosition().y-28))*((y-28)-(((horizontalBar.getPosition().y-28)/2.0)+horizontalBar.getPosition().y-28));
 	if(cx1<-1){
@@ -2548,6 +2791,7 @@ sf::Vector2f objetCoordFromP3D(float x, float y){
 		cy1=1;
 	}
 	return sf::Vector2f(cx1,cy1);
+	*/
 }
 
 void delObjet(int obj){
@@ -2662,7 +2906,7 @@ void defGrpExpansion(float dt){
 }
 
 void quaternionRotation(float a, float b, float c, float d){
-	std::cout <<  " quaternion arg0: "<< a<<" arg1: " << b <<" arg2: "<< c << std::endl;
+	//std::cout <<  " quaternion arg0: "<< a<<" arg1: " << b <<" arg2: "<< c << std::endl;
 	
 	if(objActif!=65536){
 		float v1new;
@@ -2707,7 +2951,7 @@ void quaternionRotation(float a, float b, float c, float d){
 		tabEntree[objActif].y=v2new;
 		tabEntree[objActif].z=v3new;
 		
-		std::cout <<  " rotation x: "<< v2new<<" y: " << v3new <<" z: "<< v1new << std::endl;
+		//std::cout <<  " rotation x: "<< v2new<<" y: " << v3new <<" z: "<< v1new << std::endl;
 	}
 }
 
@@ -2717,6 +2961,7 @@ void rotateY3D(){
   	float newX;
   	float newY;
   	sf::Vector3f bary;
+  	
   	switch(objMove){
 		  case 0:
 			   newX = (tabEntree[objActif].z)*cosAngle-(tabEntree[objActif].x)*sinAngle; // ligne modifiée
@@ -2735,7 +2980,7 @@ void rotateY3D(){
 	 			if(tabEntree[objActif].x<-1){
 	 				tabEntree[objActif].x=-1;
 	 			}
-				//gain(genActif);
+				gain(objActif);
 		  break;
 		  case 1:
 		  		bary=defGrpBarycentre();
@@ -2757,6 +3002,7 @@ void rotateY3D(){
 			 			if(tabEntree[i].x<-1){
 			 				tabEntree[i].x=-1;
 			 			}
+			 			gain(i);
 			 		}
 			 	}
 		  break;
@@ -2779,6 +3025,7 @@ void rotateY3D(){
 		 			if(tabEntree[i].x<-1){
 		 				tabEntree[i].x=-1;
 		 			}
+		 			gain(i);
 			 	}
 			break;
 			default:
@@ -2809,7 +3056,7 @@ void rotateX3D(){
 	 			if(tabEntree[objActif].y<-1){
 	 				tabEntree[objActif].y=-1;
 	 			}
-				//gain(genActif);
+				gain(objActif);
 		  break;
 		  case 1:
 		  		bary=defGrpBarycentre();
@@ -2831,6 +3078,7 @@ void rotateX3D(){
 			 			if(tabEntree[i].y<-1){
 			 				tabEntree[i].y=-1;
 			 			}
+			 			gain(i);
 			 		}
 			 	}
 		  break;
@@ -2853,6 +3101,7 @@ void rotateX3D(){
 		 			if(tabEntree[i].y<-1){
 		 				tabEntree[i].y=-1;
 		 			}
+		 			gain(i);
 			 	}
 			break;
 			default:
@@ -2883,7 +3132,7 @@ void rotateZ3D(){
 	 			if(tabEntree[objActif].y<-1){
 	 				tabEntree[objActif].y=-1;
 	 			}
-				//gain(genActif);
+				gain(objActif);
 		  break;
 		  case 1:
 		  		bary=defGrpBarycentre();
@@ -2905,6 +3154,7 @@ void rotateZ3D(){
 			 			if(tabEntree[i].y<-1){
 			 				tabEntree[i].y=-1;
 			 			}
+			 			gain(i);
 			 		}
 			 	}
 		  break;
@@ -2927,6 +3177,7 @@ void rotateZ3D(){
 		 			if(tabEntree[i].y<-1){
 		 				tabEntree[i].y=-1;
 		 			}
+		 			gain(i);
 			 	}
 			break;
 			default:
@@ -2936,32 +3187,69 @@ void rotateZ3D(){
 // ***********************************************************************************************************************************
 //
 // ***********************************************************************************************************************************
-
-void gain(int in){
+void defDistance(int in){
 	int piid=0;
-  	//piid=(tabEntree[in].input*3);
   	piid=0;
-  	defTrack=tabEntree[in].input;
+  	defTrack=tabEntree[in].track;
+  	float vd=(1+tabEntree[in].d)/2;
+  	float cvd=vd*vd*vd;
   	switch(prefDAW){
+  		
   		case 0:
- 				sendOSCcoordPluginArdour(defTrack,1,piid+1,tabEntree[in].x);
- 				sendOSCcoordPluginArdour(defTrack,1,piid+2,tabEntree[in].y);
- 				sendOSCcoordPluginArdour(defTrack,1,piid+3,tabEntree[in].z);	
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+6,20+(19980*cvd));
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+8,(vd*12)-12);
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+12,990-(1000*vd));
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+19,1-vd);
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+20,vd);
  		   	break;
  		case 1:
- 		   	sendOSCcoordPluginReaper(defTrack,piid,tabEntree[in].x);
- 		   	sendOSCcoordPluginReaper(defTrack,piid+1,tabEntree[in].y);
- 		   	sendOSCcoordPluginReaper(defTrack,piid+2,tabEntree[in].z);
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+5,20+(19980*cvd));
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+7,(vd*12)-12);
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+11,980-(1000*(tabEntree[in].d)));
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+18,1-vd);
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+19,vd);
+ 		   	break;
+ 		case 2:
+ 				sendOSCcoordPluginReaper2(defTrack,tabEntree[in].greffon,piid+6,tabEntree[in].d);
+ 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+8,(tabEntree[in].d/2)-0.5);
+ 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+12,1-(1+tabEntree[in].d));
+ 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+19,1-(1+tabEntree[in].d));
+ 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+20,tabEntree[in].d);
  		   	break;
  	   default:
  		   	break;
  		}
 }
+void gain(int in){
+	int piid=0;
+  	piid=0;
+  	defTrack=tabEntree[in].track;
+  	switch(prefDAW){
+  		case 0:
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+1,tabEntree[in].x);
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+2,tabEntree[in].y);
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+3,tabEntree[in].z);	
+ 		   	break;
+ 		case 1:
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid,tabEntree[in].x);
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+1,tabEntree[in].y);
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+2,tabEntree[in].z);
+ 		   	break;
+ 		case 2:
+ 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+1,tabEntree[in].x);
+ 		   	sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+2,-tabEntree[in].y);
+ 		   	sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+3,tabEntree[in].z);
+ 		   	break;
+ 	   default:
+ 		   	break;
+ 		}
+	//std::cout<< " dtrack "<<defTrack<<" in " <<tabEntree[in].input<<" x "<<tabEntree[in].x<<" y "<<tabEntree[in].y<<" z "<<tabEntree[in].z << std::endl;
+}
 void sendOSCcoordPluginArdour(int track,int plug,int piid,float value){
  lo::Address a(prefServeur, prefPortD);
  a.send("/strip/plugin/parameter", "iiif",track,plug,piid,value); 
 }
-void sendOSCcoordPluginReaper(int track,int piid,float value){
+void sendOSCcoordPluginCarla(int track,int piid,float value){
  std::stringstream adr;
  lo::Address a(prefServeur, prefPortD);
  adr << std::fixed << "/Carla/"<<track<<"/set_parameter_value";
@@ -2969,4 +3257,27 @@ void sendOSCcoordPluginReaper(int track,int piid,float value){
  adr.clear();
  adr.str("");
  a.send(message, "if", piid, value); 
+ //std::cout << "message carla= "<<message<<" gain= "<<value << std::endl;
+}
+void sendOSCcoordPluginReaper(int track,int plug,int piid,float value){
+ std::stringstream adr;
+ lo::Address a(prefServeur, prefPortD);
+ adr << std::fixed << "/track/"<<track<<"/fx/"<<plug<<"/fxparam/"<<piid<<"/value";
+ string message=adr.str();
+ adr.clear();
+ adr.str("");
+ a.send(message, "f", (value+1)/2); 
+ //std::cout << "message reaper= "<<message<<" param= "<<(value+1)/2 << std::endl;
+}
+void sendOSCcoordPluginReaper2(int track,int plug,int piid,float value){
+ std::stringstream adr;
+ lo::Address a(prefServeur, prefPortD);
+ adr << std::fixed << "/track/"<<track<<"/fx/"<<plug<<"/fxparam/"<<piid<<"/value";
+ string message=adr.str();
+ adr.clear();
+ adr.str("");
+ float vl=(value+1)/2;
+ float dvl=vl*vl*vl;
+ a.send(message, "f", dvl); 
+ //std::cout << "message reaper= "<<message<<" param= "<<dvl << std::endl;
 }

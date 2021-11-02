@@ -72,7 +72,8 @@ PI= 3.14159265359;
 flagObjActif=0;
 flagCurseurV=0;
 flagAll=0;
-planActif=255;
+planActif=65535;
+indexActif=65535;
 curseurValue=0;
 nblignes=10;
 nbHlignes=10;
@@ -231,6 +232,12 @@ adr << std::fixed << defGui<<"rightRed.png";
 if (!imageF4.loadFromFile(adr.str()))
    return EXIT_FAILURE;
 rightRed.setTexture(imageF4);
+adr.clear();
+adr.str("");
+adr << std::fixed << defGui<<"rightVide.png";
+if (!imageF4v.loadFromFile(adr.str()))
+   return EXIT_FAILURE;
+
 adr.clear();
 adr.str("");
 adr << std::fixed << defGui<<"speaker.png";
@@ -507,6 +514,7 @@ while (winCreate.isOpen()) {
 		winCreate.draw(rightRed);
 	}
 	speakerDraw();
+	
 	winCreate.draw(coordXbox);
 	winCreate.draw(coordYbox);
 	winCreate.draw(coordZbox);
@@ -596,7 +604,7 @@ scaleX=visibleArea.width/oldWinSizeX;
 scaleY=visibleArea.height/oldWinSizeY;
 //oldWinSizeX=winCreate.getSize().x;
 //oldWinSizeY=winCreate.getSize().y;
-std::cout << " scaleX " << scaleX << " scaleY " << scaleY << std::endl;
+//std::cout << " scaleX " << scaleX << " scaleY " << scaleY << std::endl;
 }
 void mouseWheel(sf::Event e){
 	int nposy;
@@ -624,14 +632,24 @@ void mouseWheel(sf::Event e){
 }
 
 void onKeyPressed(sf::Event e){
-			std::cout << "key " <<e.key.code << std::endl;
-			bool flagSp=0;
-	if (e.key.code == sf::Keyboard::Delete){
-		tabSpeaker.erase(tabSpeaker.begin()+curSelect);
-		tabType=3;
-		curSelect=65535;
+			//std::cout << "key " <<e.key.code << std::endl;
+	sf::Vector2i localPosition = sf::Mouse::getPosition(winCreate);
+	//std::cout << " planActif "<<planActif<<" indexActif "<< indexActif <<" nbid "<<tabSpeaker.size()<< std::endl;
+	if(indexActif!=65535 && localPosition.x>540 && localPosition.x<614 && localPosition.y<444){
+		
+		if (e.key.code == sf::Keyboard::Delete){
+	   	newBoxPlan.erase(newBoxPlan.begin()+indexActif);
+			rightRed.setTexture(imageF4v);
+			newPlan.erase(newPlan.begin()+indexActif);
+		}
 	}
-	
+	if(localPosition.x>648 && localPosition.x<1044 && localPosition.y<444){
+		if (e.key.code == sf::Keyboard::Delete){
+			tabSpeaker.erase(tabSpeaker.begin()+curSelect);
+			tabType=3;
+			curSelect=65535;
+		}
+	}
 }
 void onClick(sf::Event e){
 	stringstream adr;
@@ -639,13 +657,14 @@ void onClick(sf::Event e){
 	float cx;
 	float cy;
 	if (e.mouseButton.button == sf::Mouse::Left){
- 		std::cout << " Palette the left button was pressed" << std::endl;
- 		std::cout << "mouse x: " << e.mouseButton.x << std::endl;
- 		std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+ 		//std::cout << " Palette the left button was pressed" << std::endl;
+ 		//std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+ 		//std::cout << "mouse y: " << e.mouseButton.y << std::endl;
    }
    for(int i=0;i<newBoxPlan.size();i++){
    	if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>newBoxPlan[i].x && e.mouseButton.x<newBoxPlan[i].x+65 && e.mouseButton.y>newBoxPlan[i].y && e.mouseButton.y<newBoxPlan[i].y+65){
    		rightRed.setPosition(sf::Vector2f(newBoxPlan[i].x+65,newBoxPlan[i].y));
+   		rightRed.setTexture(imageF4);
    		adr << std::fixed<< std::setprecision(3)<<newPlan[i];
          s=adr.str();
          coordYtxt.setString(s);
@@ -653,7 +672,8 @@ void onClick(sf::Event e){
 	   	adr.clear();
          adr.str("");
          planActif=newPlan[i];
-	   	std::cout << "coordYtxt " << s<< std::endl;
+         indexActif=i;
+	   	//std::cout << "coordYtxt " << s<<" planActif "<<planActif<< std::endl;
 	   	break;
    	}
    }
@@ -664,14 +684,14 @@ void onClick(sf::Event e){
    if(e.mouseButton.button == sf::Mouse::Right && e.mouseButton.x>curseurV.getPosition().x && e.mouseButton.x<curseurV.getPosition().x+85 && e.mouseButton.y>curseurV.getPosition().y && e.mouseButton.y<curseurV.getPosition().y+22+base3Dy){
    	defPlan();
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>fPlani.getPosition().x && e.mouseButton.x<fPlani.getPosition().x+fPlani.getSize().x+12 && e.mouseButton.y>fPlani.getPosition().y && e.mouseButton.y<fPlani.getPosition().y+fFront.getSize().y){
+   if(indexActif!=66535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>fPlani.getPosition().x && e.mouseButton.x<fPlani.getPosition().x+fPlani.getSize().x+12 && e.mouseButton.y>fPlani.getPosition().y && e.mouseButton.y<fPlani.getPosition().y+fFront.getSize().y){
    	for(int i=0;i<tabSpeaker.size();i++){
    		cx=fPlani.getPosition().x+(fPlani.getSize().x*((tabSpeaker[i].x+1)/2));
 		   cy=fPlani.getPosition().y+(fPlani.getSize().y*((tabSpeaker[i].y+1)/2));
 			if(tabSpeaker[i].z==planActif && e.mouseButton.x>cx && e.mouseButton.x<cx+24 && e.mouseButton.y>cy && e.mouseButton.y<cy+24){
 				flagObjActif=1;
 				curSelect=i;
-				std::cout << "curselect " << curSelect<< std::endl;
+				//std::cout << "curselect " << curSelect<< std::endl;
 				break;
 			}
 		}
@@ -716,50 +736,50 @@ void onClick(sf::Event e){
          
 	   }
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>754 && e.mouseButton.x<786 && e.mouseButton.y>556 && e.mouseButton.y<842){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>754 && e.mouseButton.x<786 && e.mouseButton.y>556 && e.mouseButton.y<842){
    	tabId=((e.mouseButton.y-556)/24)+offsetTableau;
 		tabType=0;
 		curSelect=tabId;
 		apptxt="";
-		std::cout << "s " << curSelect<<  std::endl;
+		//std::cout << "s " << curSelect<<  std::endl;
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>786 && e.mouseButton.x<818 && e.mouseButton.y>556 && e.mouseButton.y<842){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>786 && e.mouseButton.x<818 && e.mouseButton.y>556 && e.mouseButton.y<842){
    	tabId=((e.mouseButton.y-556)/24)+offsetTableau;
 		tabType=1;
 		curSelect=tabId;
 		apptxt="";
-		std::cout << "c " <<  std::endl;
+		//std::cout << "c " <<  std::endl;
    }
    if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>540 && e.mouseButton.x<740 && e.mouseButton.y>512 && e.mouseButton.y<534){
 		tabType=2;
 		apptxt="";
 		newFile.setString("");
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>686 && e.mouseButton.y<710){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>686 && e.mouseButton.y<710){
    	tableauRenumS(0);
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>716 && e.mouseButton.y<740){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>716 && e.mouseButton.y<740){
    	tableauRenumC(0);
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>530 && e.mouseButton.y<540){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>530 && e.mouseButton.y<540){
    	triTableauSa();
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>540 && e.mouseButton.y<550){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>540 && e.mouseButton.y<550){
    	triTableauSd();
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>530 && e.mouseButton.y<540){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>530 && e.mouseButton.y<540){
    	triTableauCa();
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>540 && e.mouseButton.y<550){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>540 && e.mouseButton.y<550){
    	triTableauCd();
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>530 && e.mouseButton.y<540){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>530 && e.mouseButton.y<540){
    	triTableauZs();
    }
-   if(planActif!=255 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>540 && e.mouseButton.y<550){
+   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>540 && e.mouseButton.y<550){
    	triTableauZd();
    }
-   if(planActif!=255 && tabSpeaker.size()>0 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>676 && e.mouseButton.x<696 && e.mouseButton.y>474 && e.mouseButton.y<498){
+   if(indexActif!=65535 && tabSpeaker.size()>0 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>676 && e.mouseButton.x<696 && e.mouseButton.y>474 && e.mouseButton.y<498){
    	saveSpace();
    }
    if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>644 && e.mouseButton.x<668 && e.mouseButton.y>474 && e.mouseButton.y<498){
@@ -797,8 +817,8 @@ void onMouseUp(sf::Event e){
 	flagSlider=0;
 }
 void onMouseMove(sf::Event e){
-	std::cout << "Window Dessus mouse x: " << e.mouseMove.x << std::endl;
-   std::cout << "mouse y: " << e.mouseMove.y << std::endl;
+	//std::cout << "Window Dessus mouse x: " << e.mouseMove.x << std::endl;
+   //std::cout << "mouse y: " << e.mouseMove.y << std::endl;
    stringstream adr;
    string s;
    if (e.mouseMove.x>540 && e.mouseMove.y>472){
@@ -1086,7 +1106,8 @@ void nplanDraw(){
 	float winWidth=wsize.x/2;
 	float winHeight=wsize.y/2;
 	float ratioY=fRect.getSize().y/fFront.getSize().y;
-	linei[0].color = sf::Color::Red;
+	
+	linei[0].color = sf::Color::Red;                                      // ligne de plan
    linei[1].color = sf::Color::Red;
 	for(int i=0;i<newPlan.size();i++){
 		sv=fFront.getSize().y-(((newPlan[i]+1)/2)*fFront.getSize().y);
@@ -1100,6 +1121,7 @@ void nplanDraw(){
    	linei[1].position = sf::Vector2f(fFront.getPosition().x,sv+20);
    	winCreate.draw(linei);
 	}
+	
 	for(int i=0;i<newBoxPlan.size();i++){
 		nbox.setPosition(sf::Vector2f(newBoxPlan[i].x*scaleX,newBoxPlan[i].y*scaleY));
 		winCreate.draw(nbox);
@@ -1248,7 +1270,7 @@ void tableauTxtS(sf::Event e){
 	      	break;
 	      case 58:
 	      	apptxt=apptxt.substr(0,apptxt.length()-1);
-	      	std::cout << " key " << key<< std::endl;
+	      	//std::cout << " key " << key<< std::endl;
 	      	break;
 	      break;
 	 	   default :
@@ -1285,7 +1307,7 @@ void tableauRenumS(int debut){
 	int ct;
 	if(tabSpeaker.size()>1){
 		ct=tabSpeaker[debut].sortie+1;
-		std::cout << " ct " << ct << " " <<tabSpeaker[debut].sortie<< " " <<tabSpeaker[0].sortie<< std::endl;
+		//std::cout << " ct " << ct << " " <<tabSpeaker[debut].sortie<< " " <<tabSpeaker[0].sortie<< std::endl;
 		for(int i=debut+1;i<tabSpeaker.size();i++){
 			if(tabSpeaker[i].sortie!=0){
 				tabSpeaker[i].sortie=ct;
@@ -1343,49 +1365,24 @@ void triTableauCa(){
 	std::sort(tabSpeaker.begin(), tabSpeaker.end(), comparareCanald);
 }
 
-void studioDraw2(){
-	float lscale;
-	float cx1;
-	float cy1;
-	for(int i=0;i<tabSpeaker.size();i++){
-		if(tabSpeaker[i].x>0.33){
-			lscale=0.33;
-		}else{
-			lscale=(1-tabSpeaker[i].x)/2;
-		}
-		if(tabSpeaker[i].y>0){
-			cx1=(tabSpeaker[i].y*lscale*263)+(263-(40*lscale));
-		}else{
-			cx1=(tabSpeaker[i].y*lscale*263)+(283-(40*lscale));
-		}
-		if(tabSpeaker[i].z<0){
-			cy1=644-(tabSpeaker[i].z*190*lscale);
-		}else{
-			cy1=644-(tabSpeaker[i].z*190*lscale);
-		}
-		pSpeaker.setPosition(sf::Vector2f(cx1,cy1));
-		pSpeaker.setScale(lscale,lscale);
-		if(flagAll==1){
-			winCreate.draw(pSpeaker);
-		}else{
-			if(tabSpeaker[i].z==planActif){
-				winCreate.draw(pSpeaker);
-			}
-		}
-		
-	}
-}
 
 void studioDraw(){
 	float lscale;//0.33
 	float cx1;
 	float cy1;
+	float maxX=475;
+	float minX=176;
+	float ratioX=176/475;
+	
 	for(int i=0;i<tabSpeaker.size();i++){
 		
 		lscale=(1-tabSpeaker[i].x)/2;
-		cx1=263+((176*tabSpeaker[i].y*lscale)+(87*tabSpeaker[i].y));
+		if(tabSpeaker[i].y<0){
+			cx1=263+((176*tabSpeaker[i].y*lscale)+(87*tabSpeaker[i].y));
+		}else{
+			cx1=263+((176*tabSpeaker[i].y*lscale)+(87*tabSpeaker[i].y))-(48*lscale);
+		}
 		cy1=644-((tabSpeaker[i].z*60*lscale)+(65*tabSpeaker[i].z));
-
 		pSpeaker.setPosition(sf::Vector2f(cx1,cy1));
 		pSpeaker.setScale(lscale+0.2,lscale+0.2);
 		if(flagAll==1){
@@ -1408,7 +1405,7 @@ void saveSpace(){
    string wfile=fileSelector.getPath()+"/"+boost::filesystem::basename(nameFile)+".dst";
 	newFile.setString(boost::filesystem::basename(nameFile));
    newFile.setPosition(736-newFile.getLocalBounds().width-2,512);
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
 	
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
@@ -1431,7 +1428,7 @@ stringstream adr;
 	string sz="";
 
 	string wfile=fileSelector.getPath()+"/"+boost::filesystem::basename(nameFile)+".html";
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
@@ -1486,19 +1483,19 @@ void loadSpace(){
 	nameFile=fileSelector.selector();	
 	
 	string wfile=fileSelector.getPath()+"/"+nameFile;
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
    newFile.setString(boost::filesystem::basename(nameFile));
    newFile.setPosition(736-newFile.getLocalBounds().width-2,512);
 	int i=0;
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
 		ifstream fichier(wfile, ios::in);
 		if(fichier){
 			while(getline(fichier, contenu)){
-				std::cout << "ligne :"<<contenu<< std::endl;
+				//std::cout << "ligne :"<<contenu<< std::endl;
 				while ((pos = contenu.find(delimiter)) != std::string::npos) {
     				token[i] = contenu.substr(0, pos);
-    				std::cout << token[i] << std::endl;
+    				//std::cout << token[i] << std::endl;
     				i++;
     				contenu.erase(0, pos + delimiter.length());
 				}
@@ -1516,7 +1513,7 @@ void loadSpace(){
 					rightRed.setPosition(sf::Vector2f(615,curseurV.getPosition().y));
 					newPlan.push_back(nsp.z);
 					planActif=nsp.z;
-					std::cout << "nsp.z :"<<nsp.z<< std::endl;
+					//std::cout << "nsp.z :"<<nsp.z<< std::endl;
 				}
 				//defPlan();
 			}
@@ -1538,7 +1535,7 @@ void saveDSP(){
 
    string wfile=fileSelector.getPath()+"/"+nameFile;
 	
-	std::cout << "file :"<<wfile<< std::endl;
+	//std::cout << "file :"<<wfile<< std::endl;
 
 	string prog;
 	prog=prog+"declare name        \"objMatrix"+nameFile+"\"; // modifier le nom de votre greffon\n";
@@ -1548,7 +1545,7 @@ void saveDSP(){
    prog=prog+"declare copyright   \"(c)D.Blanchemain 2020\";\n";
    prog=prog+"import(\"stdfaust.lib\");\n";
 
-	prog=prog+"Matrix(N,M) =_:filters(1):delay:freeverb(1)<: par(out, M, *(Fader(1,out): si.smoo)) :> par(out, M, _)\n";
+	prog=prog+"Matrix(N,M) =_*cdistance:filter:transpose:delay:freeverb<: par(out, M, *(Fader(1,out): si.smoo)) :> par(out, M, _)\n";
 
 	prog=prog+"with {\n";
 	int j=0;
@@ -1579,69 +1576,71 @@ void saveDSP(){
 			j++;
 		}
 	}
-	prog=prog+"dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)+y(in),2) + pow(tabSpeakerZ(out)-z(in),2));\n";
+	prog=prog+"dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)-y(in),2) + pow(tabSpeakerZ(out)-z(in),2));\n";
 
-   prog=prog+"dgain(in, out) = ba.db2linear((-50/tabSpeakerD(out))*dtencGen(in,out));\n";
-    
-   prog=prog+"x(i) = hslider(\"/X%i\",0,-1,1,0.01);\n";
+   
+	prog=prog+"process = Matrix(1,"+to_string(j)+"); // le deuxième chiffre permet de définir la dimension de votre espace :9,10, ...\n";
+	prog=prog+"hspot = hslider(\"Hot Spot\",-20,-50,0,1);\n";
+	prog=prog+"dgain(in, out) = ba.db2linear((hspot/tabSpeakerD(out))*dtencGen(in,out));\n";
+	prog=prog+"x(i) = hslider(\"/X%i\",0,-1,1,0.01);\n";
+	prog=prog+"y(i) = hslider(\"/Y%i\",0,-1,1,0.01);\n";
+	prog=prog+"z(i) = hslider(\"/Z%i\",0,-1,1,0.01);\n";
+	prog=prog+"Fader(in,out)= vgroup(\"[1]Input %2in\",dgain(in,out));\n";
+	prog=prog+"cdistance=hslider(\"dt\",1,0,1,0.1);\n";
 
-   prog=prog+"y(i) = hslider(\"/Y%i\",0,-1,1,0.01);\n";
+	prog=prog+"paramDistance(x)=hgroup(\"[2]Distance\",x);\n";
+	prog=prog+"//-----------------------------------------------------------\n";
+	prog=prog+"//                   LPF \n";
+	prog=prog+"//-----------------------------------------------------------\n";
 
-   prog=prog+"z(i) = hslider(\"/Z%i\",0,-1,1,0.01);\n";
+	prog=prog+"ampfreq=paramDistance(vslider(\"LPF Amp\",5000, 20, 19980, 1));\n";
+	prog=prog+"rpf=ampfreq:floor;\n";
+	prog=prog+"LPF=fi.lowpass(3,rpf);\n";
+	prog=prog+"fbp = checkbox(\"[0] Bypass  [tooltip: When this is checked, the filters has no effect]\");\n";
+	prog=prog+"filter=paramDistance(vgroup(\"FILTERS\",ba.bypass1(fbp,hgroup(\"[1]\",LPF))));\n";
 
-   prog=prog+"Fader(in,out)= vgroup(\"[1]Input %2in\",dgain(in,out));\n";
+	prog=prog+"//-----------------------------------------------------------\n";
+	prog=prog+"//                   Pitchshifting\n";
+	prog=prog+"//-----------------------------------------------------------\n";
 
-   prog=prog+"cdistance(in)=sqrt(pow(0-x(in),2) + pow(0+y(in),2) + pow(0-z(in),2));\n";
+	prog=prog+"pwindow=paramDistance(hslider(\"window (samples)\", 1000, 50, 10000, 1));\n";
+	prog=prog+"pxfade=paramDistance(hslider(\"xfade (samples)\", 10, 1, 10000, 1));\n";
+	prog=prog+"pshift=paramDistance(hslider(\"shift (semitones) \", 0, -12, +12, 0.1));\n";
+	prog=prog+"pbp = checkbox(\"[0] Bypass  [tooltip: When this is checked, the filters has no effect]\");\n";
+	prog=prog+"transpose=paramDistance(vgroup(\"Transpose\",ba.bypass1(pbp,hgroup(\"[1]\",ef.transpose(pwindow,pxfade,pshift)))));\n";
 
-   prog=prog+"paramDistance(x)=hgroup(\"[2]Distance\",x);\n";
-   prog=prog+"//-----------------------------------------------------------\n";
-   prog=prog+"//                   LPF \n";
-   prog=prog+"//-----------------------------------------------------------\n";
-	prog=prog+"minfreq=paramDistance(vslider(\"LPF Min\",100, 20, 2000, 1));\n";
-   prog=prog+"ampfreq=paramDistance(vslider(\"LPF Amp\",5000, 20, 19980, 1));\n";
-   prog=prog+"rpf(in)=minfreq+(ampfreq*min(1,cdistance(in))):floor;\n";
-   prog=prog+"LPF(in)=fi.lowpass(3,rpf(in));\n";
 
-   prog=prog+"fbp = checkbox(\"[0] Bypass  [tooltip: When this is checked, the filters has no effect]\");\n";
-   prog=prog+"filters(in)=paramDistance(vgroup(\"FILTERS\",ba.bypass1(fbp,hgroup(\"[1]\",LPF(in)))));\n";
-   prog=prog+"//-----------------------------------------------------------\n";
-   prog=prog+"//                  Delay\n";
-   prog=prog+"//-----------------------------------------------------------\n";
-   prog=prog+"delay_group(x) = paramDistance(vgroup(\"[2]DELAY\", x));\n";
-
+	prog=prog+"//-----------------------------------------------------------\n";
+	prog=prog+"//                  Delay\n";
+	prog=prog+"//-----------------------------------------------------------\n";
+	prog=prog+"delay_group(x) = paramDistance(vgroup(\"[2]DELAY\", x));\n";
 	prog=prog+"cbp =delay_group(vgroup(\"[0]\",checkbox(\"Bypass	[tooltip: When this is checked, Delay has no effect]\")));\n";
 	prog=prog+"voice   = delay_group(vgroup(\"[1]\",(+ : de.sdelay(N, interp, dtime)) ~ *(fback)));\n";
-	prog=prog+"N = int(2^19);\n"; 
+	prog=prog+"N = int(2^19);\n";
 	prog=prog+"interp  = hslider(\"interpolation[unit:ms][style:knob]\",10,1,100,0.1)*ma.SR/1000.0;\n";
-   prog=prog+"maxtime = hslider(\"maxtime[style:knob]\",100,0,5000,0.1);\n";
 	prog=prog+"fback = hslider(\"feedback[style:knob]\",0,0,100,0.1)/100.0;\n";
-   prog=prog+"dtime = maxtime-(maxtime*min(1,cdistance(1))*ma.SR/1000.0);\n";
-   prog=prog+"delay = ba.bypass1(cbp,voice);\n";
+	prog=prog+"dtime = hslider(\"delay[unit:ms][style:knob]\", 0, 0, 1000, 0.01)*ma.SR/1000.0;\n";
+	prog=prog+"delay = ba.bypass1(cbp,voice);\n";
 	prog=prog+"//-----------------------------------------------------------\n";
-   prog=prog+"//                 Freeverb\n";
-   prog=prog+"//-----------------------------------------------------------\n";
-
+	prog=prog+"//                 Freeverb\n";
+	prog=prog+"//-----------------------------------------------------------\n";
 	prog=prog+"scaleroom   = 0.28;\n";
 	prog=prog+"offsetroom  = 0.7;\n";
 	prog=prog+"allpassfeed = 0.5;\n";
 	prog=prog+"scaledamp   = 0.4;\n";
 	prog=prog+"fixedgain   = 0.1;\n";
-	prog=prog+"origSR = 48000;\n";
-
-	prog=prog+"g=1-((1/1.73205)*min(1.73205,cdistance(1)));\n";
+	prog=prog+"origSR = ma.SR;\n";
+	prog=prog+"g=parameters(vslider(\"[1] Wet [tooltip: The amount of reverb applied to the signal between 0 and 1 with 1 for the maximum amount of reverb.]\", 0.3333, 0.3, 1, 0.025));\n";
 	prog=prog+"freeverbMono=_<: (*(g)*fixedgain :re.mono_freeverb(combfeed, allpassfeed, damping, spatSpread)),*(1-g):> _;\n";
 	prog=prog+"parameters(x) = paramDistance(hgroup(\"[3]Freeverb\",x));\n";
-	
 	prog=prog+"knobGroup(x) = parameters(vgroup(\"[1]\",x));\n";
 	prog=prog+"fvbp = knobGroup(checkbox(\"[0] Bypass	[tooltip: When this is checked, the freeverb	has no effect]\"));\n";
 	prog=prog+"damping = knobGroup(vslider(\"[1] Damp [style: knob] [tooltip: Somehow control the density of the reverb.]\",0.5, 0, 1, 0.025)*scaledamp*origSR/ma.SR);\n";
 	prog=prog+"combfeed = knobGroup(vslider(\"[2] RoomSize [style: knob] [tooltip: The room size	between 0 and 1 with 1 for the largest room.]\", 0.5, 0, 1, 0.025)*scaleroom*origSR/ma.SR + offsetroom);\n";
 	prog=prog+"spatSpread = knobGroup(vslider(\"[3] Stereo Spread [style: knob] [tooltip: Spatial spread between 0 and 1 with 1 for maximum spread.]\",0.5,0,1,0.01)*46*ma.SR/origSR: int);\n";
-	prog=prog+"freeverb(in) = ba.bypass1(fvbp,freeverbMono);\n";
-
+	prog=prog+"freeverb = ba.bypass1(fvbp,freeverbMono);\n";
 	prog=prog+"};\n";
-	prog=prog+"process = Matrix(1,"+to_string(j)+"); // le deuxième chiffre permet de définir la dimension de votre espace :9,10, ...\n";
-
+	prog=prog+"process = Matrix(1,"+to_string(j)+");";
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
@@ -1767,8 +1766,8 @@ void onButtonPressed3(){
   if(win3D.hasFocus()){
   sf::Vector2i position = sf::Mouse::getPosition(win3D);                       // Rotation avec la Sphère
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		std::cout << "buttonPressed 3D mouse x: " << position.x << std::endl;
-      std::cout << "mouse y: " << position.y << std::endl;
+		//std::cout << "buttonPressed 3D mouse x: " << position.x << std::endl;
+      //std::cout << "mouse y: " << position.y << std::endl;
 		if(position.x>48*w3WxScale && position.x<58*w3WxScale && position.y>630*w3HyScale && position.y<650*w3HyScale){
 		  Phi+=0.5;
 		  if (Phi > 40){
@@ -1820,8 +1819,8 @@ void onButtonPressed3(){
   }
 }
 void onMouseMove3(sf::Event e){  
-std::cout << "Window 3D mouse x: " << e.mouseMove.x << std::endl;
-   std::cout << "mouse y: " << e.mouseMove.y << std::endl;                    
+//std::cout << "Window 3D mouse x: " << e.mouseMove.x << std::endl;
+   //std::cout << "mouse y: " << e.mouseMove.y << std::endl;                    
 	  if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 	   	if(e.mouseMove.x<oldX){
 	   			Theta+=0.5;

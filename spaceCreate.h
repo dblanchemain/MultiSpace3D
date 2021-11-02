@@ -33,6 +33,7 @@ float oldWinSizeY;
 float scaleX;
 float scaleY;
 
+
 float PI;
 
 sf::RectangleShape bkgToolType;
@@ -58,6 +59,8 @@ sf::Texture imageF3;
 sf::Sprite cvalue;
 sf::Texture imageF4;
 sf::Sprite rightRed;
+sf::Texture imageF4v;
+sf::Sprite rightVide;
 sf::Texture imageF5;
 sf::Sprite speaker;
 sf::Texture imageF6;
@@ -142,6 +145,7 @@ int curSelect;
 sf::RectangleShape pSpeaker;
 
 std::vector<float> newPlan;
+
 std::vector<sf::Vector2f> newBoxPlan;
 sf::Sprite nbox;
 
@@ -173,6 +177,7 @@ bool flagObjActif;
 bool flagCurseurV;
 bool flagAll;
 float planActif;
+int indexActif;
 float curseurValue;
 struct nSpeaker{			// Structure pour les enceintes  sweetspot
 		int sortie;
