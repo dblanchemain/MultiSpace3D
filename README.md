@@ -21,13 +21,11 @@ Cette application a été testée sous <b>Debian/LibraZiK2.</b>
 
 MultiSpace3D dépend de SFML 2,4, glm 0.9.8, boost, d’OpenGl et de Liblo que vous devez installer si vous ne l’avez pas déjà fait.
 
-Le programme propose 15 greffons pour Ardour et Reaper aux formats Lv2 et VST :
-Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M17, Dominium, NHK222, ZKM23, RfStudio, Ircam, Satosphere, Klangdom, dispositifDb64.
-Vous pouvez installer ceux qui vous conviennent dans les répertoires correspondants, par exemple ~/.lv2 pour Ardour et ~/.vst pour <strong>Reaper</strong>. <br/>
-Sous <strong>Linux</strong>, <strong>Reaper</strong> ne reconnaît que les vst mais vous pouvez utiliser <strong>Carla</strong> pour utiliser les <b>Lv2</b> avec Reaper.
-Ces greffons sont indispensables pour le fonctionnement complet de l’application. ils se trouvent dans les dossiers $HOME/multiSpace3D/lv2.
-Ils ont été compilés à partir des sources du Grame pour le langage Faust et sont sous licence BSD.
-Vous trouverez une archive, rassemblant tous ces greffons, pour <b>Debian/LibraZiK2</b> à <a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >cette adresse</a>
+Le programme propose 17 greffons pour Ardour et Reaper aux formats Lv2 et VST :
+Auro51, Auro71, Auro91, Auro11, Auro13,micadome, M17, Dominium, NHK222, ZKM23, RfStudio, Ircam, Satosphere, Klangdom,4D sound (48), 4D sound(57) MONOM, dispositifDb64.
+Vous pouvez installer ceux qui vous conviennent dans les répertoires correspondants, par exemple ~/.lv2  <br/>
+Vous pouvez maintenant utiliser  <strong>Carla</strong>.
+Ces greffons sont indispensables pour le fonctionnement complet de l’application. ils se trouvent dans les dossiers $HOME/<dossier github>/multiSpace3D/lv2.
 
     multiSpace3D.bin constitue l'application proprement dite.
     multiSpace3D.sh est un script de lancement du programme. Vous pouvez l'utiliser pour un lanceur sur le bureau sans avoir besoin d'un terminal.
@@ -53,24 +51,11 @@ cd MultiSpace3D
 make all
 sudo make install
 </code></pre>
-Pour compiler les greffons Lv2 :
 <pre><code>
-make lv2 
-
 multiSpace3D.sh (pour lancer le programme)
-</code></pre>
-<p>Pour compiler les greffons au format vst, <strong>Faust</strong> a besoin du <b>SDK de Steinberg</b> que vous devez installer vous-même.</p>
-
-
-Make utilise la commande suivante pour compiler :
-
-<pre><code>
-$(CXX)  -std=c++17 -O3 multiSpace3D.cpp -I $(INC) -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -llo -lGL -lGLU  -lGL  -DGL_GLEXT_PROTOTYPES  -lpthread `pkg-config --cflags --libs` -o multiSpace3D.bin
 </code></pre>
 
 Vous pouvez évidemment modifier le script d’installation s’il ne vous convient pas, mais attention au générateur de script de lancement.
-
-Pour LibraZiK2, vous pouvez télécharger les binaires de tous les greffons ici :<a href="http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz"  style="text-decoration:none;" title="GNU license"  target="_blank" >http://blanchemain.info/Documents/Programmation/Programmes/linuxPlugins.tar.gz</a>
 
 La compilation sous Windows est identique avec Msys2.
 
