@@ -6,26 +6,26 @@ declare copyright   "(c)D.Blanchemain 2020";
 import("stdfaust.lib");
 Matrix(N,M) =_*cdistance:filter:transpose:delay:freeverb<: par(out, M, *(Fader(1,out): si.smoo)) :> par(out, M, _)
 with {
-tabSpeakerX(0)=-0.501;
-tabSpeakerY(0)=-0.180;
+tabSpeakerX(0)=-1.000;
+tabSpeakerY(0)=-0.181;
 tabSpeakerZ(0)=1.000;
-tabSpeakerD(0)=1.133;
-tabSpeakerX(1)=0.501;
-tabSpeakerY(1)=-0.180;
+tabSpeakerD(0)=1.426;
+tabSpeakerX(1)=1.000;
+tabSpeakerY(1)=-0.181;
 tabSpeakerZ(1)=1.000;
-tabSpeakerD(1)=1.133;
-tabSpeakerX(2)=-0.000;
-tabSpeakerY(2)=-0.180;
+tabSpeakerD(1)=1.426;
+tabSpeakerX(2)=-0.002;
+tabSpeakerY(2)=-0.181;
 tabSpeakerZ(2)=1.000;
 tabSpeakerD(2)=1.016;
-tabSpeakerX(3)=1.000;
-tabSpeakerY(3)=-0.180;
-tabSpeakerZ(3)=-1.000;
-tabSpeakerD(3)=1.426;
-tabSpeakerX(4)=-1.000;
-tabSpeakerY(4)=-0.180;
-tabSpeakerZ(4)=-1.000;
-tabSpeakerD(4)=1.426;
+tabSpeakerX(3)=-1.000;
+tabSpeakerY(3)=-0.181;
+tabSpeakerZ(3)=0.500;
+tabSpeakerD(3)=1.133;
+tabSpeakerX(4)=1.000;
+tabSpeakerY(4)=-0.181;
+tabSpeakerZ(4)=0.500;
+tabSpeakerD(4)=1.133;
 dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)-y(in),2) + pow(tabSpeakerZ(out)-z(in),2));
 process = Matrix(1,5); // le deuxième chiffre permet de définir la dimension de votre espace :9,10, ...
 hspot = hslider("Hot Spot",-20,-50,0,1);
@@ -39,7 +39,7 @@ paramDistance(x)=hgroup("[2]Distance",x);
 //-----------------------------------------------------------
 //                   LPF 
 //-----------------------------------------------------------
-ampfreq=paramDistance(vslider("LPF Amp",5000, 20, 19980, 1));
+ampfreq=vslider("LPF Amp[unit:Hz]",5000, 20, 19980, 1);
 rpf=ampfreq:floor;
 LPF=fi.lowpass(3,rpf);
 fbp = checkbox("[0] Bypass  [tooltip: When this is checked, the filters has no effect]");
@@ -47,11 +47,11 @@ filter=paramDistance(vgroup("FILTERS",ba.bypass1(fbp,hgroup("[1]",LPF))));
 //-----------------------------------------------------------
 //                   Pitchshifting
 //-----------------------------------------------------------
-pwindow=paramDistance(hslider("window (samples)", 1000, 50, 10000, 1));
-pxfade=paramDistance(hslider("xfade (samples)", 10, 1, 10000, 1));
-pshift=paramDistance(hslider("shift (semitones) ", 0, -12, +12, 0.1));
+paramPitch(x)=vgroup("[2]Param",x);pwindow=paramPitch(vslider("window (samples)[style:knob]", 1000, 50, 10000, 1));
+pxfade=paramPitch(vslider("xfade (samples)[style:knob]", 10, 1, 10000, 1));
+pshift=vslider("shift (semitones) ", 0, -12, +12, 0.1):si.smoo;
 pbp = checkbox("[0] Bypass  [tooltip: When this is checked, the filters has no effect]");
-transpose=paramDistance(vgroup("Transpose",ba.bypass1(pbp,hgroup("[1]",ef.transpose(pwindow,pxfade,pshift)))));
+transpose=paramDistance(vgroup("TRANSPOSE",ba.bypass1(pbp,hgroup("[1]",ef.transpose(pwindow,pxfade,pshift)))));
 //-----------------------------------------------------------
 //                  Delay
 //-----------------------------------------------------------
