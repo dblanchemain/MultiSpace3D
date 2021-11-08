@@ -658,8 +658,8 @@ void onClick(sf::Event e){
 	float cy;
 	if (e.mouseButton.button == sf::Mouse::Left){
  		//std::cout << " Palette the left button was pressed" << std::endl;
- 		//std::cout << "mouse x: " << e.mouseButton.x << std::endl;
- 		//std::cout << "mouse y: " << e.mouseButton.y << std::endl;
+ 		std::cout << "mouse x: " << e.mouseButton.x << std::endl;
+ 		std::cout << "mouse y: " << e.mouseButton.y << std::endl;
    }
    for(int i=0;i<newBoxPlan.size();i++){
    	if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>newBoxPlan[i].x && e.mouseButton.x<newBoxPlan[i].x+65 && e.mouseButton.y>newBoxPlan[i].y && e.mouseButton.y<newBoxPlan[i].y+65){
@@ -755,31 +755,31 @@ void onClick(sf::Event e){
 		apptxt="";
 		newFile.setString("");
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>686 && e.mouseButton.y<710){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>686 && e.mouseButton.y<710){
    	tableauRenumS(0);
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>716 && e.mouseButton.y<740){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>586 && e.mouseButton.x<690 && e.mouseButton.y>716 && e.mouseButton.y<740){
    	tableauRenumC(0);
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>530 && e.mouseButton.y<540){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>530 && e.mouseButton.y<540){
    	triTableauSa();
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>540 && e.mouseButton.y<550){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>774 && e.mouseButton.x<782 && e.mouseButton.y>540 && e.mouseButton.y<550){
    	triTableauSd();
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>530 && e.mouseButton.y<540){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>530 && e.mouseButton.y<540){
    	triTableauCa();
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>540 && e.mouseButton.y<550){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>810 && e.mouseButton.x<818 && e.mouseButton.y>540 && e.mouseButton.y<550){
    	triTableauCd();
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>530 && e.mouseButton.y<540){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>530 && e.mouseButton.y<540){
    	triTableauZs();
    }
-   if(indexActif!=65535 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>540 && e.mouseButton.y<550){
+   if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>920 && e.mouseButton.x<930 && e.mouseButton.y>540 && e.mouseButton.y<550){
    	triTableauZd();
    }
-   if(indexActif!=65535 && tabSpeaker.size()>0 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>676 && e.mouseButton.x<696 && e.mouseButton.y>474 && e.mouseButton.y<498){
+   if(tabSpeaker.size()>0 && e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>676 && e.mouseButton.x<696 && e.mouseButton.y>474 && e.mouseButton.y<498){
    	saveSpace();
    }
    if(e.mouseButton.button == sf::Mouse::Left && e.mouseButton.x>644 && e.mouseButton.x<668 && e.mouseButton.y>474 && e.mouseButton.y<498){
@@ -817,8 +817,8 @@ void onMouseUp(sf::Event e){
 	flagSlider=0;
 }
 void onMouseMove(sf::Event e){
-	//std::cout << "Window Dessus mouse x: " << e.mouseMove.x << std::endl;
-   //std::cout << "mouse y: " << e.mouseMove.y << std::endl;
+	std::cout << "Window Dessus mouse x: " << e.mouseMove.x << std::endl;
+   std::cout << "mouse y: " << e.mouseMove.y << std::endl;
    stringstream adr;
    string s;
    if (e.mouseMove.x>540 && e.mouseMove.y>472){
@@ -1405,7 +1405,7 @@ void saveSpace(){
    string wfile=fileSelector.getPath()+"/"+boost::filesystem::basename(nameFile)+".dst";
 	newFile.setString(boost::filesystem::basename(nameFile));
    newFile.setPosition(736-newFile.getLocalBounds().width-2,512);
-	//std::cout << "file :"<<wfile<< std::endl;
+	std::cout << "file :"<<wfile<< std::endl;
 	
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
@@ -1428,7 +1428,7 @@ stringstream adr;
 	string sz="";
 
 	string wfile=fileSelector.getPath()+"/"+boost::filesystem::basename(nameFile)+".html";
-	//std::cout << "file :"<<wfile<< std::endl;
+	std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
 		ofstream fichier(wfile, ios::out | ios::trunc);
 		if(fichier){
@@ -1593,7 +1593,7 @@ void saveDSP(){
 	prog=prog+"//                   LPF \n";
 	prog=prog+"//-----------------------------------------------------------\n";
 
-	prog=prog+"ampfreq=paramDistance(vslider(\"LPF Amp\",5000, 20, 19980, 1));\n";
+	prog=prog+"ampfreq=vslider(\"LPF Amp[unit:Hz]\",5000, 20, 19980, 1);\n";
 	prog=prog+"rpf=ampfreq:floor;\n";
 	prog=prog+"LPF=fi.lowpass(3,rpf);\n";
 	prog=prog+"fbp = checkbox(\"[0] Bypass  [tooltip: When this is checked, the filters has no effect]\");\n";
@@ -1602,12 +1602,12 @@ void saveDSP(){
 	prog=prog+"//-----------------------------------------------------------\n";
 	prog=prog+"//                   Pitchshifting\n";
 	prog=prog+"//-----------------------------------------------------------\n";
-
-	prog=prog+"pwindow=paramDistance(hslider(\"window (samples)\", 1000, 50, 10000, 1));\n";
-	prog=prog+"pxfade=paramDistance(hslider(\"xfade (samples)\", 10, 1, 10000, 1));\n";
-	prog=prog+"pshift=paramDistance(hslider(\"shift (semitones) \", 0, -12, +12, 0.1));\n";
+   prog=prog+"paramPitch(x)=vgroup(\"[2]Param\",x);";
+	prog=prog+"pwindow=paramPitch(vslider(\"window (samples)[style:knob]\", 1000, 50, 10000, 1));\n";
+	prog=prog+"pxfade=paramPitch(vslider(\"xfade (samples)[style:knob]\", 10, 1, 10000, 1));\n";
+	prog=prog+"pshift=vslider(\"shift (semitones) \", 0, -12, +12, 0.1):si.smoo;\n";
 	prog=prog+"pbp = checkbox(\"[0] Bypass  [tooltip: When this is checked, the filters has no effect]\");\n";
-	prog=prog+"transpose=paramDistance(vgroup(\"Transpose\",ba.bypass1(pbp,hgroup(\"[1]\",ef.transpose(pwindow,pxfade,pshift)))));\n";
+	prog=prog+"transpose=paramDistance(vgroup(\"TRANSPOSE\",ba.bypass1(pbp,hgroup(\"[1]\",ef.transpose(pwindow,pxfade,pshift)))));\n";
 
 
 	prog=prog+"//-----------------------------------------------------------\n";

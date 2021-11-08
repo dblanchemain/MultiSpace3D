@@ -2353,6 +2353,7 @@ void newSurface(){
 	string cmd=defInstall+"/spaceCreate " +defInstall+" "+home+" &";
    char* dest = new char[cmd.length() + 1];
    std::copy(cmd.begin(), cmd.end(), dest);
+   std::cout << " space " << cmd << std::endl;
    system(dest);
 }
 
@@ -2388,7 +2389,6 @@ void openSpace(){
 	std::string token[10];
 	std::string delimiter = ",";
 	entree nsp;
-	tabEntree.clear(); 
 	//string nameFile;
 	//nameFile=inpTextFile.getString();
 	//std::cout << "path "<< fileSelector.getPath()<<" open space " << nameFile << std::endl;
@@ -2398,6 +2398,7 @@ void openSpace(){
 	int i=0;
 	//std::cout << "file :"<<wfile<< std::endl;
 	if(nameFile!=""){
+		tabEntree.clear(); 
 		ifstream fichier(wfile, ios::in);
 		if(fichier){
 			while(getline(fichier, contenu)){
@@ -3197,21 +3198,21 @@ void defDistance(int in){
   		
   		case 0:
  				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+6,20+(19980*cvd));
- 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+8,(vd*12)-12);
+ 				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+10,(vd*12)-12);
  				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+12,990-(1000*vd));
  				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+19,1-vd);
  				sendOSCcoordPluginArdour(defTrack,tabEntree[in].greffon,piid+20,vd);
  		   	break;
  		case 1:
  		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+5,20+(19980*cvd));
- 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+7,(vd*12)-12);
+ 		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+9,(vd*12)-12);
  		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+11,980-(1000*(tabEntree[in].d)));
  		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+18,1-vd);
  		   	sendOSCcoordPluginCarla(tabEntree[in].greffon-1,piid+19,vd);
  		   	break;
  		case 2:
  				sendOSCcoordPluginReaper2(defTrack,tabEntree[in].greffon,piid+6,tabEntree[in].d);
- 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+8,(tabEntree[in].d/2)-0.5);
+ 				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+10,(tabEntree[in].d/2)-0.5);
  				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+12,1-(1+tabEntree[in].d));
  				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+19,1-(1+tabEntree[in].d));
  				sendOSCcoordPluginReaper(defTrack,tabEntree[in].greffon,piid+20,tabEntree[in].d);
