@@ -247,7 +247,7 @@ paramDistance(x)=hgroup("[2]Distance",x);
 //-----------------------------------------------------------
 //                   LPF 
 //-----------------------------------------------------------
-ampfreq=paramDistance(vslider("LPF Amp",5000, 20, 19980, 1));
+ampfreq=vslider("LPF Amp[unit:Hz]",5000, 20, 19980, 1);
 rpf=ampfreq:floor;
 LPF=fi.lowpass(3,rpf);
 fbp = checkbox("[0] Bypass  [tooltip: When this is checked, the filters has no effect]");
@@ -255,11 +255,11 @@ filter=paramDistance(vgroup("FILTERS",ba.bypass1(fbp,hgroup("[1]",LPF))));
 //-----------------------------------------------------------
 //                   Pitchshifting
 //-----------------------------------------------------------
-pwindow=paramDistance(hslider("window (samples)", 1000, 50, 10000, 1));
-pxfade=paramDistance(hslider("xfade (samples)", 10, 1, 10000, 1));
-pshift=paramDistance(hslider("shift (semitones) ", 0, -12, +12, 0.1));
+paramPitch(x)=vgroup("[2]Param",x);pwindow=paramPitch(vslider("window (samples)[style:knob]", 1000, 50, 10000, 1));
+pxfade=paramPitch(vslider("xfade (samples)[style:knob]", 10, 1, 10000, 1));
+pshift=vslider("shift (semitones) ", 0, -12, +12, 0.1):si.smoo;
 pbp = checkbox("[0] Bypass  [tooltip: When this is checked, the filters has no effect]");
-transpose=paramDistance(vgroup("Transpose",ba.bypass1(pbp,hgroup("[1]",ef.transpose(pwindow,pxfade,pshift)))));
+transpose=paramDistance(vgroup("TRANSPOSE",ba.bypass1(pbp,hgroup("[1]",ef.transpose(pwindow,pxfade,pshift)))));
 //-----------------------------------------------------------
 //                  Delay
 //-----------------------------------------------------------
