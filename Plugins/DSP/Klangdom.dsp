@@ -1,4 +1,4 @@
-declare name        "objMatrixKlangdom"; // modifier le nom de votre greffon
+declare name        "objMatrixKlangdom.dsp"; // modifier le nom de votre greffon
 declare version     "1.0";
 declare author      "D.Blanchemain";
 declare license     "BSD";
@@ -179,6 +179,7 @@ tabSpeakerY(42)=1.000;
 tabSpeakerZ(42)=-0.051;
 tabSpeakerD(42)=1.003;
 dtencGen(in, out) = sqrt(pow(tabSpeakerX(out)-x(in),2) + pow(tabSpeakerY(out)-y(in),2) + pow(tabSpeakerZ(out)-z(in),2));
+process = Matrix(1,43); // le deuxième chiffre permet de définir la dimension de votre espace :9,10, ...
 hspot = hslider("Hot Spot",-20,-50,0,1);
 dgain(in, out) = ba.db2linear((hspot/tabSpeakerD(out))*dtencGen(in,out));
 x(i) = hslider("/X%i",0,-1,1,0.01);
@@ -186,29 +187,23 @@ y(i) = hslider("/Y%i",0,-1,1,0.01);
 z(i) = hslider("/Z%i",0,-1,1,0.01);
 Fader(in,out)= vgroup("[1]Input %2in",dgain(in,out));
 cdistance=hslider("dt",1,0,1,0.1);
-
 paramDistance(x)=hgroup("[2]Distance",x);
 //-----------------------------------------------------------
 //                   LPF 
 //-----------------------------------------------------------
-//minfreq=paramDistance(vslider("LPF Min",100, 20, 2000, 1));
-ampfreq=paramDistance(vslider("LPF Amp",5000, 20, 19980, 1));
+ampfreq=vslider("LPF Amp[unit:Hz]",5000, 20, 19980, 1);
 rpf=ampfreq:floor;
 LPF=fi.lowpass(3,rpf);
 fbp = checkbox("[0] Bypass  [tooltip: When this is checked, the filters has no effect]");
 filter=paramDistance(vgroup("FILTERS",ba.bypass1(fbp,hgroup("[1]",LPF))));
-
 //-----------------------------------------------------------
 //                   Pitchshifting
 //-----------------------------------------------------------
-
-pwindow=paramDistance(hslider("window (samples)", 1000, 50, 10000, 1));
-pxfade=paramDistance(hslider("xfade (samples)", 10, 1, 10000, 1));
-pshift=paramDistance(hslider("shift (semitones) ", 0, -12, +12, 0.1));
+paramPitch(x)=vgroup("[2]Param",x);pwindow=paramPitch(vslider("window (samples)[style:knob]", 1000, 50, 10000, 1));
+pxfade=paramPitch(vslider("xfade (samples)[style:knob]", 10, 1, 10000, 1));
+pshift=vslider("shift (semitones) ", 0, -12, +12, 0.1):si.smoo;
 pbp = checkbox("[0] Bypass  [tooltip: When this is checked, the filters has no effect]");
-transpose=paramDistance(vgroup("Transpose",ba.bypass1(pbp,hgroup("[1]",ef.transpose(pwindow,pxfade,pshift)))));
-
-
+transpose=paramDistance(vgroup("TRANSPOSE",ba.bypass1(pbp,hgroup("[1]",ef.transpose(pwindow,pxfade,pshift)))));
 //-----------------------------------------------------------
 //                  Delay
 //-----------------------------------------------------------
@@ -229,8 +224,7 @@ allpassfeed = 0.5;
 scaledamp   = 0.4;
 fixedgain   = 0.1;
 origSR = ma.SR;
-g=parameters(vslider("[1] Wet [tooltip: The amount of reverb applied to the signal
-		between 0 and 1 with 1 for the maximum amount of reverb.]", 0.3333, 0.3, 1, 0.025));
+g=parameters(vslider("[1] Wet [tooltip: The amount of reverb applied to the signal between 0 and 1 with 1 for the maximum amount of reverb.]", 0.3333, 0.3, 1, 0.025));
 freeverbMono=_<: (*(g)*fixedgain :re.mono_freeverb(combfeed, allpassfeed, damping, spatSpread)),*(1-g):> _;
 parameters(x) = paramDistance(hgroup("[3]Freeverb",x));
 knobGroup(x) = parameters(vgroup("[1]",x));
@@ -240,5 +234,4 @@ combfeed = knobGroup(vslider("[2] RoomSize [style: knob] [tooltip: The room size
 spatSpread = knobGroup(vslider("[3] Stereo Spread [style: knob] [tooltip: Spatial spread between 0 and 1 with 1 for maximum spread.]",0.5,0,1,0.01)*46*ma.SR/origSR: int);
 freeverb = ba.bypass1(fvbp,freeverbMono);
 };
-process = Matrix(1,43); // le deuxième chiffre permet de définir la dimension de votre espace :9,10, ...
-
+process = Matrix(1,43);
